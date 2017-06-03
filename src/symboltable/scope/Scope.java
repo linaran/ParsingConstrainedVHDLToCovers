@@ -1,7 +1,7 @@
 package symboltable.scope;
 
 
-import symboltable.Symbol;
+import symboltable.symbol.Symbol;
 
 public interface Scope {
 

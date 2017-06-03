@@ -1,7 +1,5 @@
-package symboltable;
+package symboltable.symbol;
 
-
-import static symboltable.SymbolType.SIGNAL;
 
 public class SignalSymbol extends BaseSymbol {
   public SignalSymbol(String name) {
@@ -10,6 +8,6 @@ public class SignalSymbol extends BaseSymbol {
 
   @Override
   public SymbolType getType() {
-    return SIGNAL;
+    return SymbolType.SIGNAL;
   }
 }

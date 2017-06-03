@@ -1,4 +1,4 @@
-package symboltable;
+package symboltable.symbol;
 
 
 public enum SymbolType {

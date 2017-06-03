@@ -2,7 +2,7 @@ package symboltable.scope;
 
 
 import com.sun.istack.internal.Nullable;
-import symboltable.Symbol;
+import symboltable.symbol.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;

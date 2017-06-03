@@ -1,10 +1,10 @@
 package symboltable.scope;
 
 
-import symboltable.Symbol;
-import symboltable.SymbolType;
+import symboltable.symbol.Symbol;
+import symboltable.symbol.SymbolType;
 
-import static symboltable.SymbolType.ENTITY;
+import static symboltable.symbol.SymbolType.ENTITY;
 
 final public class EntitySymbol extends BaseScope implements Symbol {
 

@@ -1,7 +1,5 @@
-package symboltable;
+package symboltable.symbol;
 
-
-import static symboltable.SymbolType.IN;
 
 public class InSymbol extends BaseSymbol {
   public InSymbol(String name) {
@@ -10,6 +8,6 @@ public class InSymbol extends BaseSymbol {
 
   @Override
   public SymbolType getType() {
-    return IN;
+    return SymbolType.IN;
   }
 }

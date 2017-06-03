@@ -1,6 +1,6 @@
 package symboltable.scope;
 
-import symboltable.Symbol;
+import symboltable.symbol.Symbol;
 
 final public class GlobalScope extends BaseScope {
 
