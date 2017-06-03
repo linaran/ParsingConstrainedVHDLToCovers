@@ -76,11 +76,19 @@ public interface VHDLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArchitecture(VHDLParser.ArchitectureContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VHDLParser#architecture_details}.
+	 * Visit a parse tree produced by the {@code assignmentExpression}
+	 * labeled alternative in {@link VHDLParser#architecture_details}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArchitecture_details(VHDLParser.Architecture_detailsContext ctx);
+	T visitAssignmentExpression(VHDLParser.AssignmentExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code entityWork}
+	 * labeled alternative in {@link VHDLParser#architecture_details}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEntityWork(VHDLParser.EntityWorkContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VHDLParser#assignment_expression}.
 	 * @param ctx the parse tree
