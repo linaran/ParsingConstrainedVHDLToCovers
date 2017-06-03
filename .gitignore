@@ -1,4 +1,5 @@
 .idea/
 out/
+gen/
 JedecFromConstrainedVHDL.iml
 src/mainpoints/Noob.java
