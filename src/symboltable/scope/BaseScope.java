@@ -1,14 +1,20 @@
-package symboltable;
+package symboltable.scope;
 
 
 import com.sun.istack.internal.Nullable;
+import symboltable.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class BaseScope implements Scope {
 
+  private Scope linkedScope;
   protected Map<String, Symbol> scope = new HashMap<>();
+
+  public BaseScope(Scope linkedScope) {
+    this.linkedScope = linkedScope;
+  }
 
   @Override
   public boolean define(Symbol symbol) {
@@ -23,6 +29,12 @@ public class BaseScope implements Scope {
   @Override
   @Nullable
   public Symbol resolve(String name) {
-    return scope.get(name);
+    Symbol retValue = scope.get(name);
+    return (retValue != null) ? retValue : linkedScope.resolve(name);
+  }
+
+  @Override
+  public Scope getLinkedScope() {
+    return linkedScope;
   }
 }
