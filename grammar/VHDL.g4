@@ -102,20 +102,12 @@ port_list
     ;
 
 interface_declarations
-    : interface_declaration ( SEMI interface_declaration )*
-    ;
-
-interface_declaration
-    : identifier_list COLON in_out 'std_logic'
+    : identifier_list COLON IN 'std_logic'  # interfaceDeclarationIn
+    | identifier_list COLON OUT 'std_logic' # interfaceDeclarationOut
     ;
 
 identifier_list
     : identifier ( COMMA identifier )*
-    ;
-
-in_out
-    : IN
-    | OUT
     ;
 
 identifier
@@ -139,21 +131,20 @@ assignment_expression
     : identifier LE expression SEMI;
 
 expression
-    : ( unary_operator )? identifier ( dual_operator expression )?
+    : ( unary_operator )? identifier ( binary_operator expression )?
     | LPARENT expression RPARENT
     ;
 
 unary_operator
-    : NOT
+    : NOT   #NOT
     ;
 
-dual_operator
-    : AND
-    | OR
-    | NAND
-    | NOR
-    | XOR
-    | XNOR
+binary_operator
+    : AND   #AND
+    | OR    #OR
+    | NAND  #NAND
+    | NOR   #NOR
+    | XOR   #XOR
     ;
 
 entity_work
