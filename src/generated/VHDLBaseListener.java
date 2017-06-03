@@ -87,25 +87,25 @@ public class VHDLBaseListener implements VHDLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterfaceDeclarationIn(VHDLParser.InterfaceDeclarationInContext ctx) { }
+	@Override public void enterInput_declaration(VHDLParser.Input_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInterfaceDeclarationIn(VHDLParser.InterfaceDeclarationInContext ctx) { }
+	@Override public void exitInput_declaration(VHDLParser.Input_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterfaceDeclarationOut(VHDLParser.InterfaceDeclarationOutContext ctx) { }
+	@Override public void enterOutput_declaration(VHDLParser.Output_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInterfaceDeclarationOut(VHDLParser.InterfaceDeclarationOutContext ctx) { }
+	@Override public void exitOutput_declaration(VHDLParser.Output_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -23,14 +23,15 @@ public class VHDLParser extends Parser {
 		BASIC_IDENTIFIER=33, DIGIT=34, LETTER=35, WS=36;
 	public static final int
 		RULE_file = 0, RULE_unit = 1, RULE_entity_declaration = 2, RULE_port_declaration = 3, 
-		RULE_port_list = 4, RULE_interface_declarations = 5, RULE_interface_declaration = 6, 
-		RULE_identifier_list = 7, RULE_identifier = 8, RULE_architecture = 9, 
-		RULE_architecture_details = 10, RULE_assignment_expression = 11, RULE_expression = 12, 
-		RULE_unary_operator = 13, RULE_binary_operator = 14, RULE_entity_work = 15, 
-		RULE_port_spec = 16, RULE_assignment_list = 17, RULE_assignment = 18;
+		RULE_port_list = 4, RULE_interface_declarations = 5, RULE_input_declaration = 6, 
+		RULE_output_declaration = 7, RULE_identifier_list = 8, RULE_identifier = 9, 
+		RULE_architecture = 10, RULE_architecture_details = 11, RULE_assignment_expression = 12, 
+		RULE_expression = 13, RULE_unary_operator = 14, RULE_binary_operator = 15, 
+		RULE_entity_work = 16, RULE_port_spec = 17, RULE_assignment_list = 18, 
+		RULE_assignment = 19;
 	public static final String[] ruleNames = {
 		"file", "unit", "entity_declaration", "port_declaration", "port_list", 
-		"interface_declarations", "interface_declaration", "identifier_list", 
+		"interface_declarations", "input_declaration", "output_declaration", "identifier_list", 
 		"identifier", "architecture", "architecture_details", "assignment_expression", 
 		"expression", "unary_operator", "binary_operator", "entity_work", "port_spec", 
 		"assignment_list", "assignment"
@@ -132,21 +133,21 @@ public class VHDLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(41);
+			setState(43);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==ENTITY || _la==ARCHITECTURE) {
 				{
 				{
-				setState(38);
+				setState(40);
 				unit();
 				}
 				}
-				setState(43);
+				setState(45);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(44);
+			setState(46);
 			match(EOF);
 			}
 		}
@@ -191,20 +192,20 @@ public class VHDLParser extends Parser {
 		UnitContext _localctx = new UnitContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_unit);
 		try {
-			setState(48);
+			setState(50);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ENTITY:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(46);
+				setState(48);
 				entity_declaration();
 				}
 				break;
 			case ARCHITECTURE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(47);
+				setState(49);
 				architecture();
 				}
 				break;
@@ -263,27 +264,27 @@ public class VHDLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(50);
-			match(ENTITY);
-			setState(51);
-			identifier();
 			setState(52);
-			match(IS);
+			match(ENTITY);
 			setState(53);
-			port_declaration();
+			identifier();
 			setState(54);
-			match(END);
+			match(IS);
+			setState(55);
+			port_declaration();
 			setState(56);
+			match(END);
+			setState(58);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==BASIC_IDENTIFIER) {
 				{
-				setState(55);
+				setState(57);
 				identifier();
 				}
 			}
 
-			setState(58);
+			setState(60);
 			match(SEMI);
 			}
 		}
@@ -331,15 +332,15 @@ public class VHDLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
-			match(PORT);
-			setState(61);
-			match(LPARENT);
 			setState(62);
-			port_list();
+			match(PORT);
 			setState(63);
-			match(RPARENT);
+			match(LPARENT);
 			setState(64);
+			port_list();
+			setState(65);
+			match(RPARENT);
+			setState(66);
 			match(SEMI);
 			}
 		}
@@ -383,7 +384,7 @@ public class VHDLParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(66);
+			setState(68);
 			interface_declarations();
 			}
 		}
@@ -399,13 +400,13 @@ public class VHDLParser extends Parser {
 	}
 
 	public static class Interface_declarationsContext extends ParserRuleContext {
-		public List<Interface_declarationContext> interface_declaration() {
-			return getRuleContexts(Interface_declarationContext.class);
-		}
-		public Interface_declarationContext interface_declaration(int i) {
-			return getRuleContext(Interface_declarationContext.class,i);
+		public Input_declarationContext input_declaration() {
+			return getRuleContext(Input_declarationContext.class,0);
 		}
 		public TerminalNode SEMI() { return getToken(VHDLParser.SEMI, 0); }
+		public Output_declarationContext output_declaration() {
+			return getRuleContext(Output_declarationContext.class,0);
+		}
 		public Interface_declarationsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -429,14 +430,31 @@ public class VHDLParser extends Parser {
 		Interface_declarationsContext _localctx = new Interface_declarationsContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_interface_declarations);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(68);
-			interface_declaration();
-			setState(69);
-			match(SEMI);
-			setState(70);
-			interface_declaration();
+			setState(78);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(70);
+				input_declaration();
+				setState(71);
+				match(SEMI);
+				setState(72);
+				output_declaration();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(74);
+				output_declaration();
+				setState(75);
+				match(SEMI);
+				setState(76);
+				input_declaration();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -450,95 +468,97 @@ public class VHDLParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Interface_declarationContext extends ParserRuleContext {
-		public Interface_declarationContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_interface_declaration; }
-	 
-		public Interface_declarationContext() { }
-		public void copyFrom(Interface_declarationContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class InterfaceDeclarationInContext extends Interface_declarationContext {
+	public static class Input_declarationContext extends ParserRuleContext {
 		public Identifier_listContext identifier_list() {
 			return getRuleContext(Identifier_listContext.class,0);
 		}
 		public TerminalNode COLON() { return getToken(VHDLParser.COLON, 0); }
 		public TerminalNode IN() { return getToken(VHDLParser.IN, 0); }
-		public InterfaceDeclarationInContext(Interface_declarationContext ctx) { copyFrom(ctx); }
+		public Input_declarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_input_declaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).enterInterfaceDeclarationIn(this);
+			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).enterInput_declaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).exitInterfaceDeclarationIn(this);
+			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).exitInput_declaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VHDLVisitor ) return ((VHDLVisitor<? extends T>)visitor).visitInterfaceDeclarationIn(this);
+			if ( visitor instanceof VHDLVisitor ) return ((VHDLVisitor<? extends T>)visitor).visitInput_declaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class InterfaceDeclarationOutContext extends Interface_declarationContext {
+
+	public final Input_declarationContext input_declaration() throws RecognitionException {
+		Input_declarationContext _localctx = new Input_declarationContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_input_declaration);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(80);
+			identifier_list();
+			setState(81);
+			match(COLON);
+			setState(82);
+			match(IN);
+			setState(83);
+			match(T__0);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Output_declarationContext extends ParserRuleContext {
 		public Identifier_listContext identifier_list() {
 			return getRuleContext(Identifier_listContext.class,0);
 		}
 		public TerminalNode COLON() { return getToken(VHDLParser.COLON, 0); }
 		public TerminalNode OUT() { return getToken(VHDLParser.OUT, 0); }
-		public InterfaceDeclarationOutContext(Interface_declarationContext ctx) { copyFrom(ctx); }
+		public Output_declarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_output_declaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).enterInterfaceDeclarationOut(this);
+			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).enterOutput_declaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).exitInterfaceDeclarationOut(this);
+			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).exitOutput_declaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VHDLVisitor ) return ((VHDLVisitor<? extends T>)visitor).visitInterfaceDeclarationOut(this);
+			if ( visitor instanceof VHDLVisitor ) return ((VHDLVisitor<? extends T>)visitor).visitOutput_declaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Interface_declarationContext interface_declaration() throws RecognitionException {
-		Interface_declarationContext _localctx = new Interface_declarationContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_interface_declaration);
+	public final Output_declarationContext output_declaration() throws RecognitionException {
+		Output_declarationContext _localctx = new Output_declarationContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_output_declaration);
 		try {
-			setState(82);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
-			case 1:
-				_localctx = new InterfaceDeclarationInContext(_localctx);
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(72);
-				identifier_list();
-				setState(73);
-				match(COLON);
-				setState(74);
-				match(IN);
-				setState(75);
-				match(T__0);
-				}
-				break;
-			case 2:
-				_localctx = new InterfaceDeclarationOutContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(77);
-				identifier_list();
-				setState(78);
-				match(COLON);
-				setState(79);
-				match(OUT);
-				setState(80);
-				match(T__0);
-				}
-				break;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(85);
+			identifier_list();
+			setState(86);
+			match(COLON);
+			setState(87);
+			match(OUT);
+			setState(88);
+			match(T__0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -584,26 +604,26 @@ public class VHDLParser extends Parser {
 
 	public final Identifier_listContext identifier_list() throws RecognitionException {
 		Identifier_listContext _localctx = new Identifier_listContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_identifier_list);
+		enterRule(_localctx, 16, RULE_identifier_list);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(84);
+			setState(90);
 			identifier();
-			setState(89);
+			setState(95);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(85);
+				setState(91);
 				match(COMMA);
-				setState(86);
+				setState(92);
 				identifier();
 				}
 				}
-				setState(91);
+				setState(97);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -643,11 +663,11 @@ public class VHDLParser extends Parser {
 
 	public final IdentifierContext identifier() throws RecognitionException {
 		IdentifierContext _localctx = new IdentifierContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_identifier);
+		enterRule(_localctx, 18, RULE_identifier);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(92);
+			setState(98);
 			match(BASIC_IDENTIFIER);
 			}
 		}
@@ -707,48 +727,48 @@ public class VHDLParser extends Parser {
 
 	public final ArchitectureContext architecture() throws RecognitionException {
 		ArchitectureContext _localctx = new ArchitectureContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_architecture);
+		enterRule(_localctx, 20, RULE_architecture);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(94);
-			match(ARCHITECTURE);
-			setState(95);
-			identifier();
-			setState(96);
-			match(OF);
-			setState(97);
-			identifier();
-			setState(98);
-			match(IS);
-			setState(99);
-			match(SIGNAL);
 			setState(100);
-			identifier_list();
+			match(ARCHITECTURE);
 			setState(101);
-			match(COLON);
+			identifier();
 			setState(102);
-			match(T__0);
+			match(OF);
 			setState(103);
-			match(SEMI);
+			identifier();
 			setState(104);
-			match(BEGIN);
+			match(IS);
 			setState(105);
-			architecture_details();
+			match(SIGNAL);
 			setState(106);
-			match(END);
+			identifier_list();
+			setState(107);
+			match(COLON);
 			setState(108);
+			match(T__0);
+			setState(109);
+			match(SEMI);
+			setState(110);
+			match(BEGIN);
+			setState(111);
+			architecture_details();
+			setState(112);
+			match(END);
+			setState(114);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==BASIC_IDENTIFIER) {
 				{
-				setState(107);
+				setState(113);
 				identifier();
 				}
 			}
 
-			setState(110);
+			setState(116);
 			match(SEMI);
 			}
 		}
@@ -797,33 +817,14 @@ public class VHDLParser extends Parser {
 
 	public final Architecture_detailsContext architecture_details() throws RecognitionException {
 		Architecture_detailsContext _localctx = new Architecture_detailsContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_architecture_details);
+		enterRule(_localctx, 22, RULE_architecture_details);
 		int _la;
 		try {
-			setState(124);
+			setState(130);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
-				{
-				setState(115);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				while (_la==BASIC_IDENTIFIER) {
-					{
-					{
-					setState(112);
-					assignment_expression();
-					}
-					}
-					setState(117);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
 				{
 				setState(121);
 				_errHandler.sync(this);
@@ -832,10 +833,29 @@ public class VHDLParser extends Parser {
 					{
 					{
 					setState(118);
-					entity_work();
+					assignment_expression();
 					}
 					}
 					setState(123);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(127);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==BASIC_IDENTIFIER) {
+					{
+					{
+					setState(124);
+					entity_work();
+					}
+					}
+					setState(129);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -884,17 +904,17 @@ public class VHDLParser extends Parser {
 
 	public final Assignment_expressionContext assignment_expression() throws RecognitionException {
 		Assignment_expressionContext _localctx = new Assignment_expressionContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_assignment_expression);
+		enterRule(_localctx, 24, RULE_assignment_expression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(126);
+			setState(132);
 			identifier();
-			setState(127);
+			setState(133);
 			match(LE);
-			setState(128);
+			setState(134);
 			expression();
-			setState(129);
+			setState(135);
 			match(SEMI);
 			}
 		}
@@ -945,36 +965,36 @@ public class VHDLParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_expression);
+		enterRule(_localctx, 26, RULE_expression);
 		int _la;
 		try {
-			setState(144);
+			setState(150);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NOT:
 			case BASIC_IDENTIFIER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(132);
+				setState(138);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==NOT) {
 					{
-					setState(131);
+					setState(137);
 					unary_operator();
 					}
 				}
 
-				setState(134);
+				setState(140);
 				identifier();
-				setState(138);
+				setState(144);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << XOR) | (1L << AND) | (1L << NAND) | (1L << OR) | (1L << NOR))) != 0)) {
 					{
-					setState(135);
+					setState(141);
 					binary_operator();
-					setState(136);
+					setState(142);
 					expression();
 					}
 				}
@@ -984,11 +1004,11 @@ public class VHDLParser extends Parser {
 			case LPARENT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(140);
+				setState(146);
 				match(LPARENT);
-				setState(141);
+				setState(147);
 				expression();
-				setState(142);
+				setState(148);
 				match(RPARENT);
 				}
 				break;
@@ -1038,12 +1058,12 @@ public class VHDLParser extends Parser {
 
 	public final Unary_operatorContext unary_operator() throws RecognitionException {
 		Unary_operatorContext _localctx = new Unary_operatorContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_unary_operator);
+		enterRule(_localctx, 28, RULE_unary_operator);
 		try {
 			_localctx = new NOTContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(146);
+			setState(152);
 			match(NOT);
 			}
 		}
@@ -1157,16 +1177,16 @@ public class VHDLParser extends Parser {
 
 	public final Binary_operatorContext binary_operator() throws RecognitionException {
 		Binary_operatorContext _localctx = new Binary_operatorContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_binary_operator);
+		enterRule(_localctx, 30, RULE_binary_operator);
 		try {
-			setState(153);
+			setState(159);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case AND:
 				_localctx = new ANDContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(148);
+				setState(154);
 				match(AND);
 				}
 				break;
@@ -1174,7 +1194,7 @@ public class VHDLParser extends Parser {
 				_localctx = new ORContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(149);
+				setState(155);
 				match(OR);
 				}
 				break;
@@ -1182,7 +1202,7 @@ public class VHDLParser extends Parser {
 				_localctx = new NANDContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(150);
+				setState(156);
 				match(NAND);
 				}
 				break;
@@ -1190,7 +1210,7 @@ public class VHDLParser extends Parser {
 				_localctx = new NORContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(151);
+				setState(157);
 				match(NOR);
 				}
 				break;
@@ -1198,7 +1218,7 @@ public class VHDLParser extends Parser {
 				_localctx = new XORContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(152);
+				setState(158);
 				match(XOR);
 				}
 				break;
@@ -1255,31 +1275,31 @@ public class VHDLParser extends Parser {
 
 	public final Entity_workContext entity_work() throws RecognitionException {
 		Entity_workContext _localctx = new Entity_workContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_entity_work);
+		enterRule(_localctx, 32, RULE_entity_work);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(155);
-			identifier();
-			setState(156);
-			match(COLON);
-			setState(157);
-			match(ENTITY);
-			setState(158);
-			match(T__1);
-			setState(159);
-			identifier();
-			setState(160);
-			match(PORT);
 			setState(161);
-			match(MAP);
+			identifier();
 			setState(162);
-			match(LPARENT);
+			match(COLON);
 			setState(163);
-			port_spec();
+			match(ENTITY);
 			setState(164);
-			match(RPARENT);
+			match(T__1);
 			setState(165);
+			identifier();
+			setState(166);
+			match(PORT);
+			setState(167);
+			match(MAP);
+			setState(168);
+			match(LPARENT);
+			setState(169);
+			port_spec();
+			setState(170);
+			match(RPARENT);
+			setState(171);
 			match(SEMI);
 			}
 		}
@@ -1322,22 +1342,22 @@ public class VHDLParser extends Parser {
 
 	public final Port_specContext port_spec() throws RecognitionException {
 		Port_specContext _localctx = new Port_specContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_port_spec);
+		enterRule(_localctx, 34, RULE_port_spec);
 		try {
-			setState(169);
+			setState(175);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(167);
+				setState(173);
 				identifier_list();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(168);
+				setState(174);
 				assignment_list();
 				}
 				break;
@@ -1386,26 +1406,26 @@ public class VHDLParser extends Parser {
 
 	public final Assignment_listContext assignment_list() throws RecognitionException {
 		Assignment_listContext _localctx = new Assignment_listContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_assignment_list);
+		enterRule(_localctx, 36, RULE_assignment_list);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(171);
+			setState(177);
 			assignment();
-			setState(176);
+			setState(182);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(172);
+				setState(178);
 				match(COMMA);
-				setState(173);
+				setState(179);
 				assignment();
 				}
 				}
-				setState(178);
+				setState(184);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1451,15 +1471,15 @@ public class VHDLParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_assignment);
+		enterRule(_localctx, 38, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(179);
+			setState(185);
 			identifier();
-			setState(180);
+			setState(186);
 			match(GE);
-			setState(181);
+			setState(187);
 			identifier();
 			}
 		}
@@ -1475,59 +1495,62 @@ public class VHDLParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3&\u00ba\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3&\u00c0\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\3\2\7\2*\n\2\f\2\16\2-\13\2\3\2\3\2\3\3\3\3\5\3\63"+
-		"\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4;\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5"+
-		"\3\6\3\6\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bU"+
-		"\n\b\3\t\3\t\3\t\7\tZ\n\t\f\t\16\t]\13\t\3\n\3\n\3\13\3\13\3\13\3\13\3"+
-		"\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13o\n\13\3\13\3\13"+
-		"\3\f\7\ft\n\f\f\f\16\fw\13\f\3\f\7\fz\n\f\f\f\16\f}\13\f\5\f\177\n\f\3"+
-		"\r\3\r\3\r\3\r\3\r\3\16\5\16\u0087\n\16\3\16\3\16\3\16\3\16\5\16\u008d"+
-		"\n\16\3\16\3\16\3\16\3\16\5\16\u0093\n\16\3\17\3\17\3\20\3\20\3\20\3\20"+
-		"\3\20\5\20\u009c\n\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21"+
-		"\3\21\3\21\3\22\3\22\5\22\u00ac\n\22\3\23\3\23\3\23\7\23\u00b1\n\23\f"+
-		"\23\16\23\u00b4\13\23\3\24\3\24\3\24\3\24\3\24\2\2\25\2\4\6\b\n\f\16\20"+
-		"\22\24\26\30\32\34\36 \"$&\2\2\2\u00b8\2+\3\2\2\2\4\62\3\2\2\2\6\64\3"+
-		"\2\2\2\b>\3\2\2\2\nD\3\2\2\2\fF\3\2\2\2\16T\3\2\2\2\20V\3\2\2\2\22^\3"+
-		"\2\2\2\24`\3\2\2\2\26~\3\2\2\2\30\u0080\3\2\2\2\32\u0092\3\2\2\2\34\u0094"+
-		"\3\2\2\2\36\u009b\3\2\2\2 \u009d\3\2\2\2\"\u00ab\3\2\2\2$\u00ad\3\2\2"+
-		"\2&\u00b5\3\2\2\2(*\5\4\3\2)(\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,."+
-		"\3\2\2\2-+\3\2\2\2./\7\2\2\3/\3\3\2\2\2\60\63\5\6\4\2\61\63\5\24\13\2"+
-		"\62\60\3\2\2\2\62\61\3\2\2\2\63\5\3\2\2\2\64\65\7\5\2\2\65\66\5\22\n\2"+
-		"\66\67\7\6\2\2\678\5\b\5\28:\7\t\2\29;\5\22\n\2:9\3\2\2\2:;\3\2\2\2;<"+
-		"\3\2\2\2<=\7!\2\2=\7\3\2\2\2>?\7\7\2\2?@\7\31\2\2@A\5\n\6\2AB\7\32\2\2"+
-		"BC\7!\2\2C\t\3\2\2\2DE\5\f\7\2E\13\3\2\2\2FG\5\16\b\2GH\7!\2\2HI\5\16"+
-		"\b\2I\r\3\2\2\2JK\5\20\t\2KL\7\33\2\2LM\7\r\2\2MN\7\3\2\2NU\3\2\2\2OP"+
-		"\5\20\t\2PQ\7\33\2\2QR\7\16\2\2RS\7\3\2\2SU\3\2\2\2TJ\3\2\2\2TO\3\2\2"+
-		"\2U\17\3\2\2\2V[\5\22\n\2WX\7\30\2\2XZ\5\22\n\2YW\3\2\2\2Z]\3\2\2\2[Y"+
-		"\3\2\2\2[\\\3\2\2\2\\\21\3\2\2\2][\3\2\2\2^_\7#\2\2_\23\3\2\2\2`a\7\n"+
-		"\2\2ab\5\22\n\2bc\7\13\2\2cd\5\22\n\2de\7\6\2\2ef\7\f\2\2fg\5\20\t\2g"+
-		"h\7\33\2\2hi\7\3\2\2ij\7!\2\2jk\7\b\2\2kl\5\26\f\2ln\7\t\2\2mo\5\22\n"+
-		"\2nm\3\2\2\2no\3\2\2\2op\3\2\2\2pq\7!\2\2q\25\3\2\2\2rt\5\30\r\2sr\3\2"+
-		"\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2v\177\3\2\2\2wu\3\2\2\2xz\5 \21\2yx"+
-		"\3\2\2\2z}\3\2\2\2{y\3\2\2\2{|\3\2\2\2|\177\3\2\2\2}{\3\2\2\2~u\3\2\2"+
-		"\2~{\3\2\2\2\177\27\3\2\2\2\u0080\u0081\5\22\n\2\u0081\u0082\7\37\2\2"+
-		"\u0082\u0083\5\32\16\2\u0083\u0084\7!\2\2\u0084\31\3\2\2\2\u0085\u0087"+
-		"\5\34\17\2\u0086\u0085\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\3\2\2\2"+
-		"\u0088\u008c\5\22\n\2\u0089\u008a\5\36\20\2\u008a\u008b\5\32\16\2\u008b"+
-		"\u008d\3\2\2\2\u008c\u0089\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u0093\3\2"+
-		"\2\2\u008e\u008f\7\31\2\2\u008f\u0090\5\32\16\2\u0090\u0091\7\32\2\2\u0091"+
-		"\u0093\3\2\2\2\u0092\u0086\3\2\2\2\u0092\u008e\3\2\2\2\u0093\33\3\2\2"+
-		"\2\u0094\u0095\7\25\2\2\u0095\35\3\2\2\2\u0096\u009c\7\22\2\2\u0097\u009c"+
-		"\7\24\2\2\u0098\u009c\7\23\2\2\u0099\u009c\7\27\2\2\u009a\u009c\7\21\2"+
-		"\2\u009b\u0096\3\2\2\2\u009b\u0097\3\2\2\2\u009b\u0098\3\2\2\2\u009b\u0099"+
-		"\3\2\2\2\u009b\u009a\3\2\2\2\u009c\37\3\2\2\2\u009d\u009e\5\22\n\2\u009e"+
-		"\u009f\7\33\2\2\u009f\u00a0\7\5\2\2\u00a0\u00a1\7\4\2\2\u00a1\u00a2\5"+
-		"\22\n\2\u00a2\u00a3\7\7\2\2\u00a3\u00a4\7\17\2\2\u00a4\u00a5\7\31\2\2"+
-		"\u00a5\u00a6\5\"\22\2\u00a6\u00a7\7\32\2\2\u00a7\u00a8\7!\2\2\u00a8!\3"+
-		"\2\2\2\u00a9\u00ac\5\20\t\2\u00aa\u00ac\5$\23\2\u00ab\u00a9\3\2\2\2\u00ab"+
-		"\u00aa\3\2\2\2\u00ac#\3\2\2\2\u00ad\u00b2\5&\24\2\u00ae\u00af\7\30\2\2"+
-		"\u00af\u00b1\5&\24\2\u00b0\u00ae\3\2\2\2\u00b1\u00b4\3\2\2\2\u00b2\u00b0"+
-		"\3\2\2\2\u00b2\u00b3\3\2\2\2\u00b3%\3\2\2\2\u00b4\u00b2\3\2\2\2\u00b5"+
-		"\u00b6\5\22\n\2\u00b6\u00b7\7 \2\2\u00b7\u00b8\5\22\n\2\u00b8\'\3\2\2"+
-		"\2\21+\62:T[nu{~\u0086\u008c\u0092\u009b\u00ab\u00b2";
+		"\4\23\t\23\4\24\t\24\4\25\t\25\3\2\7\2,\n\2\f\2\16\2/\13\2\3\2\3\2\3\3"+
+		"\3\3\5\3\65\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4=\n\4\3\4\3\4\3\5\3\5\3\5\3"+
+		"\5\3\5\3\5\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7Q\n\7\3\b\3\b\3"+
+		"\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\7\n`\n\n\f\n\16\nc\13\n\3\13"+
+		"\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\fu\n\f"+
+		"\3\f\3\f\3\r\7\rz\n\r\f\r\16\r}\13\r\3\r\7\r\u0080\n\r\f\r\16\r\u0083"+
+		"\13\r\5\r\u0085\n\r\3\16\3\16\3\16\3\16\3\16\3\17\5\17\u008d\n\17\3\17"+
+		"\3\17\3\17\3\17\5\17\u0093\n\17\3\17\3\17\3\17\3\17\5\17\u0099\n\17\3"+
+		"\20\3\20\3\21\3\21\3\21\3\21\3\21\5\21\u00a2\n\21\3\22\3\22\3\22\3\22"+
+		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\23\3\23\5\23\u00b2\n\23\3\24"+
+		"\3\24\3\24\7\24\u00b7\n\24\f\24\16\24\u00ba\13\24\3\25\3\25\3\25\3\25"+
+		"\3\25\2\2\26\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(\2\2\2\u00bd"+
+		"\2-\3\2\2\2\4\64\3\2\2\2\6\66\3\2\2\2\b@\3\2\2\2\nF\3\2\2\2\fP\3\2\2\2"+
+		"\16R\3\2\2\2\20W\3\2\2\2\22\\\3\2\2\2\24d\3\2\2\2\26f\3\2\2\2\30\u0084"+
+		"\3\2\2\2\32\u0086\3\2\2\2\34\u0098\3\2\2\2\36\u009a\3\2\2\2 \u00a1\3\2"+
+		"\2\2\"\u00a3\3\2\2\2$\u00b1\3\2\2\2&\u00b3\3\2\2\2(\u00bb\3\2\2\2*,\5"+
+		"\4\3\2+*\3\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\60\3\2\2\2/-\3\2\2\2\60"+
+		"\61\7\2\2\3\61\3\3\2\2\2\62\65\5\6\4\2\63\65\5\26\f\2\64\62\3\2\2\2\64"+
+		"\63\3\2\2\2\65\5\3\2\2\2\66\67\7\5\2\2\678\5\24\13\289\7\6\2\29:\5\b\5"+
+		"\2:<\7\t\2\2;=\5\24\13\2<;\3\2\2\2<=\3\2\2\2=>\3\2\2\2>?\7!\2\2?\7\3\2"+
+		"\2\2@A\7\7\2\2AB\7\31\2\2BC\5\n\6\2CD\7\32\2\2DE\7!\2\2E\t\3\2\2\2FG\5"+
+		"\f\7\2G\13\3\2\2\2HI\5\16\b\2IJ\7!\2\2JK\5\20\t\2KQ\3\2\2\2LM\5\20\t\2"+
+		"MN\7!\2\2NO\5\16\b\2OQ\3\2\2\2PH\3\2\2\2PL\3\2\2\2Q\r\3\2\2\2RS\5\22\n"+
+		"\2ST\7\33\2\2TU\7\r\2\2UV\7\3\2\2V\17\3\2\2\2WX\5\22\n\2XY\7\33\2\2YZ"+
+		"\7\16\2\2Z[\7\3\2\2[\21\3\2\2\2\\a\5\24\13\2]^\7\30\2\2^`\5\24\13\2_]"+
+		"\3\2\2\2`c\3\2\2\2a_\3\2\2\2ab\3\2\2\2b\23\3\2\2\2ca\3\2\2\2de\7#\2\2"+
+		"e\25\3\2\2\2fg\7\n\2\2gh\5\24\13\2hi\7\13\2\2ij\5\24\13\2jk\7\6\2\2kl"+
+		"\7\f\2\2lm\5\22\n\2mn\7\33\2\2no\7\3\2\2op\7!\2\2pq\7\b\2\2qr\5\30\r\2"+
+		"rt\7\t\2\2su\5\24\13\2ts\3\2\2\2tu\3\2\2\2uv\3\2\2\2vw\7!\2\2w\27\3\2"+
+		"\2\2xz\5\32\16\2yx\3\2\2\2z}\3\2\2\2{y\3\2\2\2{|\3\2\2\2|\u0085\3\2\2"+
+		"\2}{\3\2\2\2~\u0080\5\"\22\2\177~\3\2\2\2\u0080\u0083\3\2\2\2\u0081\177"+
+		"\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0085\3\2\2\2\u0083\u0081\3\2\2\2\u0084"+
+		"{\3\2\2\2\u0084\u0081\3\2\2\2\u0085\31\3\2\2\2\u0086\u0087\5\24\13\2\u0087"+
+		"\u0088\7\37\2\2\u0088\u0089\5\34\17\2\u0089\u008a\7!\2\2\u008a\33\3\2"+
+		"\2\2\u008b\u008d\5\36\20\2\u008c\u008b\3\2\2\2\u008c\u008d\3\2\2\2\u008d"+
+		"\u008e\3\2\2\2\u008e\u0092\5\24\13\2\u008f\u0090\5 \21\2\u0090\u0091\5"+
+		"\34\17\2\u0091\u0093\3\2\2\2\u0092\u008f\3\2\2\2\u0092\u0093\3\2\2\2\u0093"+
+		"\u0099\3\2\2\2\u0094\u0095\7\31\2\2\u0095\u0096\5\34\17\2\u0096\u0097"+
+		"\7\32\2\2\u0097\u0099\3\2\2\2\u0098\u008c\3\2\2\2\u0098\u0094\3\2\2\2"+
+		"\u0099\35\3\2\2\2\u009a\u009b\7\25\2\2\u009b\37\3\2\2\2\u009c\u00a2\7"+
+		"\22\2\2\u009d\u00a2\7\24\2\2\u009e\u00a2\7\23\2\2\u009f\u00a2\7\27\2\2"+
+		"\u00a0\u00a2\7\21\2\2\u00a1\u009c\3\2\2\2\u00a1\u009d\3\2\2\2\u00a1\u009e"+
+		"\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a0\3\2\2\2\u00a2!\3\2\2\2\u00a3"+
+		"\u00a4\5\24\13\2\u00a4\u00a5\7\33\2\2\u00a5\u00a6\7\5\2\2\u00a6\u00a7"+
+		"\7\4\2\2\u00a7\u00a8\5\24\13\2\u00a8\u00a9\7\7\2\2\u00a9\u00aa\7\17\2"+
+		"\2\u00aa\u00ab\7\31\2\2\u00ab\u00ac\5$\23\2\u00ac\u00ad\7\32\2\2\u00ad"+
+		"\u00ae\7!\2\2\u00ae#\3\2\2\2\u00af\u00b2\5\22\n\2\u00b0\u00b2\5&\24\2"+
+		"\u00b1\u00af\3\2\2\2\u00b1\u00b0\3\2\2\2\u00b2%\3\2\2\2\u00b3\u00b8\5"+
+		"(\25\2\u00b4\u00b5\7\30\2\2\u00b5\u00b7\5(\25\2\u00b6\u00b4\3\2\2\2\u00b7"+
+		"\u00ba\3\2\2\2\u00b8\u00b6\3\2\2\2\u00b8\u00b9\3\2\2\2\u00b9\'\3\2\2\2"+
+		"\u00ba\u00b8\3\2\2\2\u00bb\u00bc\5\24\13\2\u00bc\u00bd\7 \2\2\u00bd\u00be"+
+		"\5\24\13\2\u00be)\3\2\2\2\21-\64<Pat{\u0081\u0084\u008c\u0092\u0098\u00a1"+
+		"\u00b1\u00b8";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

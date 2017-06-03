@@ -58,14 +58,14 @@ public class VHDLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements V
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInterfaceDeclarationIn(VHDLParser.InterfaceDeclarationInContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInput_declaration(VHDLParser.Input_declarationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInterfaceDeclarationOut(VHDLParser.InterfaceDeclarationOutContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOutput_declaration(VHDLParser.Output_declarationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
