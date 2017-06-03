@@ -102,6 +102,10 @@ port_list
     ;
 
 interface_declarations
+    : interface_declaration SEMI interface_declaration
+    ;
+
+interface_declaration
     : identifier_list COLON IN 'std_logic'  # interfaceDeclarationIn
     | identifier_list COLON OUT 'std_logic' # interfaceDeclarationOut
     ;
