@@ -40,15 +40,21 @@ public interface VHDLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPort_list(VHDLParser.Port_listContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link VHDLParser#interface_declarations}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInterface_declarations(VHDLParser.Interface_declarationsContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code interfaceDeclarationIn}
-	 * labeled alternative in {@link VHDLParser#interface_declarations}.
+	 * labeled alternative in {@link VHDLParser#interface_declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitInterfaceDeclarationIn(VHDLParser.InterfaceDeclarationInContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code interfaceDeclarationOut}
-	 * labeled alternative in {@link VHDLParser#interface_declarations}.
+	 * labeled alternative in {@link VHDLParser#interface_declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */

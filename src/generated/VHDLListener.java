@@ -57,26 +57,36 @@ public interface VHDLListener extends ParseTreeListener {
 	 */
 	void exitPort_list(VHDLParser.Port_listContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link VHDLParser#interface_declarations}.
+	 * @param ctx the parse tree
+	 */
+	void enterInterface_declarations(VHDLParser.Interface_declarationsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link VHDLParser#interface_declarations}.
+	 * @param ctx the parse tree
+	 */
+	void exitInterface_declarations(VHDLParser.Interface_declarationsContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code interfaceDeclarationIn}
-	 * labeled alternative in {@link VHDLParser#interface_declarations}.
+	 * labeled alternative in {@link VHDLParser#interface_declaration}.
 	 * @param ctx the parse tree
 	 */
 	void enterInterfaceDeclarationIn(VHDLParser.InterfaceDeclarationInContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code interfaceDeclarationIn}
-	 * labeled alternative in {@link VHDLParser#interface_declarations}.
+	 * labeled alternative in {@link VHDLParser#interface_declaration}.
 	 * @param ctx the parse tree
 	 */
 	void exitInterfaceDeclarationIn(VHDLParser.InterfaceDeclarationInContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code interfaceDeclarationOut}
-	 * labeled alternative in {@link VHDLParser#interface_declarations}.
+	 * labeled alternative in {@link VHDLParser#interface_declaration}.
 	 * @param ctx the parse tree
 	 */
 	void enterInterfaceDeclarationOut(VHDLParser.InterfaceDeclarationOutContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code interfaceDeclarationOut}
-	 * labeled alternative in {@link VHDLParser#interface_declarations}.
+	 * labeled alternative in {@link VHDLParser#interface_declaration}.
 	 * @param ctx the parse tree
 	 */
 	void exitInterfaceDeclarationOut(VHDLParser.InterfaceDeclarationOutContext ctx);

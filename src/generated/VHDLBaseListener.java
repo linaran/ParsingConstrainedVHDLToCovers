@@ -75,6 +75,18 @@ public class VHDLBaseListener implements VHDLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInterface_declarations(VHDLParser.Interface_declarationsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInterface_declarations(VHDLParser.Interface_declarationsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInterfaceDeclarationIn(VHDLParser.InterfaceDeclarationInContext ctx) { }
 	/**
 	 * {@inheritDoc}
