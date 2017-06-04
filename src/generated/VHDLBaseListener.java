@@ -147,25 +147,13 @@ public class VHDLBaseListener implements VHDLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignmentExpression(VHDLParser.AssignmentExpressionContext ctx) { }
+	@Override public void enterArchitecture_details(VHDLParser.Architecture_detailsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignmentExpression(VHDLParser.AssignmentExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterEntityWork(VHDLParser.EntityWorkContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEntityWork(VHDLParser.EntityWorkContext ctx) { }
+	@Override public void exitArchitecture_details(VHDLParser.Architecture_detailsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

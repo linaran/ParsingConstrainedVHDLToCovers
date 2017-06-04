@@ -117,29 +117,15 @@ public interface VHDLListener extends ParseTreeListener {
 	 */
 	void exitArchitecture(VHDLParser.ArchitectureContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code assignmentExpression}
-	 * labeled alternative in {@link VHDLParser#architecture_details}.
+	 * Enter a parse tree produced by {@link VHDLParser#architecture_details}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignmentExpression(VHDLParser.AssignmentExpressionContext ctx);
+	void enterArchitecture_details(VHDLParser.Architecture_detailsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code assignmentExpression}
-	 * labeled alternative in {@link VHDLParser#architecture_details}.
+	 * Exit a parse tree produced by {@link VHDLParser#architecture_details}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignmentExpression(VHDLParser.AssignmentExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code entityWork}
-	 * labeled alternative in {@link VHDLParser#architecture_details}.
-	 * @param ctx the parse tree
-	 */
-	void enterEntityWork(VHDLParser.EntityWorkContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code entityWork}
-	 * labeled alternative in {@link VHDLParser#architecture_details}.
-	 * @param ctx the parse tree
-	 */
-	void exitEntityWork(VHDLParser.EntityWorkContext ctx);
+	void exitArchitecture_details(VHDLParser.Architecture_detailsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VHDLParser#assignment_expression}.
 	 * @param ctx the parse tree

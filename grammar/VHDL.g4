@@ -131,8 +131,8 @@ architecture
     ;
 
 architecture_details
-    : ( assignment_expression )*    #assignmentExpression
-    | ( entity_work )*              #entityWork
+    : ( assignment_expression )*
+    | ( entity_work )*
     ;
 
 assignment_expression

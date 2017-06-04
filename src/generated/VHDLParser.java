@@ -784,57 +784,33 @@ public class VHDLParser extends Parser {
 	}
 
 	public static class Architecture_detailsContext extends ParserRuleContext {
-		public Architecture_detailsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_architecture_details; }
-	 
-		public Architecture_detailsContext() { }
-		public void copyFrom(Architecture_detailsContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class EntityWorkContext extends Architecture_detailsContext {
-		public List<Entity_workContext> entity_work() {
-			return getRuleContexts(Entity_workContext.class);
-		}
-		public Entity_workContext entity_work(int i) {
-			return getRuleContext(Entity_workContext.class,i);
-		}
-		public EntityWorkContext(Architecture_detailsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).enterEntityWork(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).exitEntityWork(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VHDLVisitor ) return ((VHDLVisitor<? extends T>)visitor).visitEntityWork(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AssignmentExpressionContext extends Architecture_detailsContext {
 		public List<Assignment_expressionContext> assignment_expression() {
 			return getRuleContexts(Assignment_expressionContext.class);
 		}
 		public Assignment_expressionContext assignment_expression(int i) {
 			return getRuleContext(Assignment_expressionContext.class,i);
 		}
-		public AssignmentExpressionContext(Architecture_detailsContext ctx) { copyFrom(ctx); }
+		public List<Entity_workContext> entity_work() {
+			return getRuleContexts(Entity_workContext.class);
+		}
+		public Entity_workContext entity_work(int i) {
+			return getRuleContext(Entity_workContext.class,i);
+		}
+		public Architecture_detailsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_architecture_details; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).enterAssignmentExpression(this);
+			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).enterArchitecture_details(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).exitAssignmentExpression(this);
+			if ( listener instanceof VHDLListener ) ((VHDLListener)listener).exitArchitecture_details(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VHDLVisitor ) return ((VHDLVisitor<? extends T>)visitor).visitAssignmentExpression(this);
+			if ( visitor instanceof VHDLVisitor ) return ((VHDLVisitor<? extends T>)visitor).visitArchitecture_details(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -848,7 +824,6 @@ public class VHDLParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
-				_localctx = new AssignmentExpressionContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(121);
@@ -868,7 +843,6 @@ public class VHDLParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new EntityWorkContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(127);

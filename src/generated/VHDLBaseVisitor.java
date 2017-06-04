@@ -93,14 +93,7 @@ public class VHDLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements V
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssignmentExpression(VHDLParser.AssignmentExpressionContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitEntityWork(VHDLParser.EntityWorkContext ctx) { return visitChildren(ctx); }
+	@Override public T visitArchitecture_details(VHDLParser.Architecture_detailsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
