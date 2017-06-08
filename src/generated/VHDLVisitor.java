@@ -16,12 +16,6 @@ public interface VHDLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFile(VHDLParser.FileContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VHDLParser#unit}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnit(VHDLParser.UnitContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link VHDLParser#entity_declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -88,53 +82,74 @@ public interface VHDLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment_expression(VHDLParser.Assignment_expressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VHDLParser#expression}.
+	 * Visit a parse tree produced by the {@code expressionIdentifier}
+	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(VHDLParser.ExpressionContext ctx);
+	T visitExpressionIdentifier(VHDLParser.ExpressionIdentifierContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code NOT}
-	 * labeled alternative in {@link VHDLParser#unary_operator}.
+	 * Visit a parse tree produced by the {@code expressionParentheses}
+	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNOT(VHDLParser.NOTContext ctx);
+	T visitExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AND}
+	 * Visit a parse tree produced by the {@code expressionBinaryOperator}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code expressionUnaryOperator}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionUnaryOperator(VHDLParser.ExpressionUnaryOperatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link VHDLParser#unary_operator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary_operator(VHDLParser.Unary_operatorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code andOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAND(VHDLParser.ANDContext ctx);
+	T visitAndOp(VHDLParser.AndOpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code OR}
+	 * Visit a parse tree produced by the {@code orOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOR(VHDLParser.ORContext ctx);
+	T visitOrOp(VHDLParser.OrOpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code NAND}
+	 * Visit a parse tree produced by the {@code nandOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNAND(VHDLParser.NANDContext ctx);
+	T visitNandOp(VHDLParser.NandOpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code NOR}
+	 * Visit a parse tree produced by the {@code norOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNOR(VHDLParser.NORContext ctx);
+	T visitNorOp(VHDLParser.NorOpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code XOR}
+	 * Visit a parse tree produced by the {@code xorOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitXOR(VHDLParser.XORContext ctx);
+	T visitXorOp(VHDLParser.XorOpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VHDLParser#entity_work}.
 	 * @param ctx the parse tree

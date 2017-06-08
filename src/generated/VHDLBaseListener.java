@@ -27,18 +27,6 @@ public class VHDLBaseListener implements VHDLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnit(VHDLParser.UnitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnit(VHDLParser.UnitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterEntity_declaration(VHDLParser.Entity_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -171,85 +159,121 @@ public class VHDLBaseListener implements VHDLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(VHDLParser.ExpressionContext ctx) { }
+	@Override public void enterExpressionIdentifier(VHDLParser.ExpressionIdentifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(VHDLParser.ExpressionContext ctx) { }
+	@Override public void exitExpressionIdentifier(VHDLParser.ExpressionIdentifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNOT(VHDLParser.NOTContext ctx) { }
+	@Override public void enterExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNOT(VHDLParser.NOTContext ctx) { }
+	@Override public void exitExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAND(VHDLParser.ANDContext ctx) { }
+	@Override public void enterExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAND(VHDLParser.ANDContext ctx) { }
+	@Override public void exitExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOR(VHDLParser.ORContext ctx) { }
+	@Override public void enterExpressionUnaryOperator(VHDLParser.ExpressionUnaryOperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOR(VHDLParser.ORContext ctx) { }
+	@Override public void exitExpressionUnaryOperator(VHDLParser.ExpressionUnaryOperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNAND(VHDLParser.NANDContext ctx) { }
+	@Override public void enterUnary_operator(VHDLParser.Unary_operatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNAND(VHDLParser.NANDContext ctx) { }
+	@Override public void exitUnary_operator(VHDLParser.Unary_operatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNOR(VHDLParser.NORContext ctx) { }
+	@Override public void enterAndOp(VHDLParser.AndOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNOR(VHDLParser.NORContext ctx) { }
+	@Override public void exitAndOp(VHDLParser.AndOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterXOR(VHDLParser.XORContext ctx) { }
+	@Override public void enterOrOp(VHDLParser.OrOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitXOR(VHDLParser.XORContext ctx) { }
+	@Override public void exitOrOp(VHDLParser.OrOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNandOp(VHDLParser.NandOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNandOp(VHDLParser.NandOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNorOp(VHDLParser.NorOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNorOp(VHDLParser.NorOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterXorOp(VHDLParser.XorOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitXorOp(VHDLParser.XorOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

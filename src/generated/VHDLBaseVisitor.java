@@ -23,13 +23,6 @@ public class VHDLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements V
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUnit(VHDLParser.UnitContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitEntity_declaration(VHDLParser.Entity_declarationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -107,49 +100,70 @@ public class VHDLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements V
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExpression(VHDLParser.ExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExpressionIdentifier(VHDLParser.ExpressionIdentifierContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNOT(VHDLParser.NOTContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAND(VHDLParser.ANDContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOR(VHDLParser.ORContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExpressionUnaryOperator(VHDLParser.ExpressionUnaryOperatorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNAND(VHDLParser.NANDContext ctx) { return visitChildren(ctx); }
+	@Override public T visitUnary_operator(VHDLParser.Unary_operatorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNOR(VHDLParser.NORContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAndOp(VHDLParser.AndOpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitXOR(VHDLParser.XORContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOrOp(VHDLParser.OrOpContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNandOp(VHDLParser.NandOpContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNorOp(VHDLParser.NorOpContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitXorOp(VHDLParser.XorOpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

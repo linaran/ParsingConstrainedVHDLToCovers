@@ -80,12 +80,7 @@ LETTER
 // Rules
 
 file
-    : ( unit )* EOF
-    ;
-
-unit
-    : entity_declaration
-    | architecture
+    : entity_declaration architecture
     ;
 
 entity_declaration
@@ -132,27 +127,28 @@ architecture
 
 architecture_details
     : ( assignment_expression )*
-    | ( entity_work )*
     ;
 
 assignment_expression
     : identifier LE expression SEMI;
 
 expression
-    : ( unary_operator )? identifier ( binary_operator expression )?
-    | LPARENT expression RPARENT
+    : identifier                            #expressionIdentifier
+    | unary_operator expression             #expressionUnaryOperator
+    | expression binary_operator expression #expressionBinaryOperator
+    | LPARENT expression RPARENT            #expressionParentheses
     ;
 
 unary_operator
-    : NOT   #NOT
+    : NOT
     ;
 
 binary_operator
-    : AND   #AND
-    | OR    #OR
-    | NAND  #NAND
-    | NOR   #NOR
-    | XOR   #XOR
+    : AND   #andOp
+    | OR    #orOp
+    | NAND  #nandOp
+    | NOR   #norOp
+    | XOR   #xorOp
     ;
 
 entity_work

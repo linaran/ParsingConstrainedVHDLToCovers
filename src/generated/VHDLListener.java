@@ -17,16 +17,6 @@ public interface VHDLListener extends ParseTreeListener {
 	 */
 	void exitFile(VHDLParser.FileContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VHDLParser#unit}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnit(VHDLParser.UnitContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link VHDLParser#unit}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnit(VHDLParser.UnitContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link VHDLParser#entity_declaration}.
 	 * @param ctx the parse tree
 	 */
@@ -137,87 +127,123 @@ public interface VHDLListener extends ParseTreeListener {
 	 */
 	void exitAssignment_expression(VHDLParser.Assignment_expressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VHDLParser#expression}.
+	 * Enter a parse tree produced by the {@code expressionIdentifier}
+	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(VHDLParser.ExpressionContext ctx);
+	void enterExpressionIdentifier(VHDLParser.ExpressionIdentifierContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VHDLParser#expression}.
+	 * Exit a parse tree produced by the {@code expressionIdentifier}
+	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(VHDLParser.ExpressionContext ctx);
+	void exitExpressionIdentifier(VHDLParser.ExpressionIdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NOT}
-	 * labeled alternative in {@link VHDLParser#unary_operator}.
+	 * Enter a parse tree produced by the {@code expressionParentheses}
+	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterNOT(VHDLParser.NOTContext ctx);
+	void enterExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NOT}
-	 * labeled alternative in {@link VHDLParser#unary_operator}.
+	 * Exit a parse tree produced by the {@code expressionParentheses}
+	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitNOT(VHDLParser.NOTContext ctx);
+	void exitExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AND}
+	 * Enter a parse tree produced by the {@code expressionBinaryOperator}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionBinaryOperator}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code expressionUnaryOperator}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionUnaryOperator(VHDLParser.ExpressionUnaryOperatorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionUnaryOperator}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionUnaryOperator(VHDLParser.ExpressionUnaryOperatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link VHDLParser#unary_operator}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnary_operator(VHDLParser.Unary_operatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link VHDLParser#unary_operator}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnary_operator(VHDLParser.Unary_operatorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code andOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterAND(VHDLParser.ANDContext ctx);
+	void enterAndOp(VHDLParser.AndOpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AND}
+	 * Exit a parse tree produced by the {@code andOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitAND(VHDLParser.ANDContext ctx);
+	void exitAndOp(VHDLParser.AndOpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code OR}
+	 * Enter a parse tree produced by the {@code orOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterOR(VHDLParser.ORContext ctx);
+	void enterOrOp(VHDLParser.OrOpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code OR}
+	 * Exit a parse tree produced by the {@code orOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitOR(VHDLParser.ORContext ctx);
+	void exitOrOp(VHDLParser.OrOpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NAND}
+	 * Enter a parse tree produced by the {@code nandOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterNAND(VHDLParser.NANDContext ctx);
+	void enterNandOp(VHDLParser.NandOpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NAND}
+	 * Exit a parse tree produced by the {@code nandOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitNAND(VHDLParser.NANDContext ctx);
+	void exitNandOp(VHDLParser.NandOpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NOR}
+	 * Enter a parse tree produced by the {@code norOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterNOR(VHDLParser.NORContext ctx);
+	void enterNorOp(VHDLParser.NorOpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NOR}
+	 * Exit a parse tree produced by the {@code norOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitNOR(VHDLParser.NORContext ctx);
+	void exitNorOp(VHDLParser.NorOpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code XOR}
+	 * Enter a parse tree produced by the {@code xorOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterXOR(VHDLParser.XORContext ctx);
+	void enterXorOp(VHDLParser.XorOpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code XOR}
+	 * Exit a parse tree produced by the {@code xorOp}
 	 * labeled alternative in {@link VHDLParser#binary_operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitXOR(VHDLParser.XORContext ctx);
+	void exitXorOp(VHDLParser.XorOpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VHDLParser#entity_work}.
 	 * @param ctx the parse tree
