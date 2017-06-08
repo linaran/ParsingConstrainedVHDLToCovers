@@ -5,12 +5,13 @@ import com.sun.istack.internal.Nullable;
 import symboltable.symbol.Symbol;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BaseScope implements Scope {
 
   private Scope linkedScope;
-  protected Map<String, Symbol> scope = new HashMap<>();
+  protected Map<String, Symbol> scope = new LinkedHashMap<>();
 
   public BaseScope(Scope linkedScope) {
     this.linkedScope = linkedScope;

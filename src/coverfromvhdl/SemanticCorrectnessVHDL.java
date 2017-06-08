@@ -15,6 +15,7 @@ import symboltable.symbol.SignalSymbol;
 import symboltable.symbol.Symbol;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class SemanticCorrectnessVHDL extends VHDLBaseListener {
@@ -27,27 +28,27 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
     scopes.put(context, scope);
   }
 
-  private void tryDefine(Scope scope, Symbol symbol) {
+  private void tryDefine(Scope scope, Symbol symbol, int line) {
     if (!scope.define(symbol)) {
-      alreadyDefined(symbol);
+      alreadyDefined(symbol, line);
     }
   }
 
-  private void checkResolve(Scope scope, String name) {
+  private void checkResolve(Scope scope, String name, int line) {
     if (scope.resolve(name) == null) {
-      notDefined(name);
+      notDefined(name, line);
     }
   }
 
-  private void alreadyDefined(Symbol symbol) {
+  private void alreadyDefined(Symbol symbol, int line) {
     throw new UnsupportedOperationException(
-        symbol.getName() + " already defined in this scope."
+        symbol.getName() + " in line " + line + " already defined in this scope."
     );
   }
 
-  private void notDefined(String name) {
+  private void notDefined(String name, int line) {
     throw new UnsupportedOperationException(
-        name + " not defined in this scope."
+        name + " in line " + line + " not defined in this scope."
     );
   }
 
@@ -84,10 +85,12 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
     }
 
     Scope currentScope = scopeStack.peek();
-    String entityName = ctx.identifier().get(0).getText();
+    VHDLParser.IdentifierContext entityIdentifier = ctx.identifier(0);
+    String entityName = entityIdentifier.getText();
     EntitySymbol entitySymbol = new EntitySymbol(entityName);
+    int line = entityIdentifier.BASIC_IDENTIFIER().getSymbol().getLine();
 
-    tryDefine(currentScope, entitySymbol);
+    tryDefine(currentScope, entitySymbol, line);
 
     scopeStack.push(entitySymbol);
     saveScope(ctx, entitySymbol);
@@ -97,10 +100,11 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
   public void enterInput_declaration(VHDLParser.Input_declarationContext ctx) {
     Scope currentScope = scopeStack.peek();
 
-    String[] inputIdentifierNames = ctx.identifier_list().getText().split(",");
-    for (String name : inputIdentifierNames) {
-      Symbol inSymbol = new InSymbol(name);
-      tryDefine(currentScope, inSymbol);
+    List<VHDLParser.IdentifierContext> identifiers = ctx.identifier_list().identifier();
+    for (VHDLParser.IdentifierContext identifier : identifiers) {
+      Symbol inSymbol = new InSymbol(identifier.getText());
+      int line = identifier.BASIC_IDENTIFIER().getSymbol().getLine();
+      tryDefine(currentScope, inSymbol, line);
     }
   }
 
@@ -108,10 +112,11 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
   public void enterOutput_declaration(VHDLParser.Output_declarationContext ctx) {
     Scope currentScope = scopeStack.peek();
 
-    String[] outputIdentifierNames = ctx.identifier_list().getText().split(",");
-    for (String name : outputIdentifierNames) {
-      Symbol outSymbol = new OutSymbol(name);
-      tryDefine(currentScope, outSymbol);
+    List<VHDLParser.IdentifierContext> identifiers = ctx.identifier_list().identifier();
+    for (VHDLParser.IdentifierContext identifier : identifiers) {
+      Symbol outSymbol = new OutSymbol(identifier.getText());
+      int line = identifier.BASIC_IDENTIFIER().getSymbol().getLine();
+      tryDefine(currentScope, outSymbol, line);
     }
   }
 
@@ -139,12 +144,13 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
       checkArchitectureIdentityNames(ctx);
     }
 
-    String linkedEntityName = ctx.identifier().get(1).getText();
+    String linkedEntityName = ctx.identifier(1).getText();
     Symbol symbolPlaceholder = globalScope.resolve(linkedEntityName);
 
     if (symbolPlaceholder == null) {
       throw new UnsupportedOperationException(
-          "Entity " + linkedEntityName + " for this architecture doesn't exist."
+          "Entity " + linkedEntityName + " for this architecture doesn't exist. " +
+              "Found in line: " + ctx.identifier(1).BASIC_IDENTIFIER().getSymbol().getLine()
       );
     }
 
@@ -158,11 +164,12 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
     }
 
     Scope currentScope = scopeStack.peek();
-    String architectureName = ctx.identifier().get(0).getText();
+    String architectureName = ctx.identifier(0).getText();
+    int line = ctx.identifier(0).BASIC_IDENTIFIER().getSymbol().getLine();
     ArchitectureSymbol architectureSymbol =
         new ArchitectureSymbol(architectureName, linkedEntitySymbol);
 
-    tryDefine(currentScope, architectureSymbol);
+    tryDefine(currentScope, architectureSymbol, line);
 
     scopeStack.push(architectureSymbol);
     saveScope(ctx, architectureSymbol);
@@ -172,11 +179,12 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
 
   private void defineSignals(VHDLParser.ArchitectureContext ctx) {
     Scope currentScope = scopeStack.peek();
-    String[] signalIdentifiers = ctx.identifier_list().getText().split(",");
 
-    for (String signalIdentifier : signalIdentifiers) {
-      SignalSymbol signalSymbol = new SignalSymbol(signalIdentifier);
-      tryDefine(currentScope, signalSymbol);
+    List<VHDLParser.IdentifierContext> identifiers = ctx.identifier_list().identifier();
+    for (VHDLParser.IdentifierContext identifier : identifiers) {
+      SignalSymbol signalSymbol = new SignalSymbol(identifier.getText());
+      int line = identifier.BASIC_IDENTIFIER().getSymbol().getLine();
+      tryDefine(currentScope, signalSymbol, line);
     }
   }
 
@@ -184,18 +192,28 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
   public void enterAssignment_expression(VHDLParser.Assignment_expressionContext ctx) {
     Scope currentScope = scopeStack.peek();
     String leftIdentifier = ctx.identifier().getText();
-    checkResolve(currentScope, leftIdentifier);
+    int line = ctx.identifier().BASIC_IDENTIFIER().getSymbol().getLine();
+    checkResolve(currentScope, leftIdentifier, line);
   }
 
   @Override
-  public void enterExpression(VHDLParser.ExpressionContext ctx) {
+  public void enterExpressionIdentifier(VHDLParser.ExpressionIdentifierContext ctx) {
     Scope currentScope = scopeStack.peek();
     String identifier = ctx.identifier().getText();
-    checkResolve(currentScope, identifier);
+    int line = ctx.identifier().BASIC_IDENTIFIER().getSymbol().getLine();
+    checkResolve(currentScope, identifier, line);
   }
 
   @Override
   public void exitArchitecture(VHDLParser.ArchitectureContext ctx) {
     scopeStack.pop();
+  }
+
+  public ParseTreeProperty<Scope> getScopes() {
+    return scopes;
+  }
+
+  public GlobalScope getGlobalScope() {
+    return globalScope;
   }
 }
