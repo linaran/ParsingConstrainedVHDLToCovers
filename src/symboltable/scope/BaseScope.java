@@ -5,6 +5,7 @@ import com.sun.istack.internal.Nullable;
 import symboltable.symbol.Symbol;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -37,5 +38,10 @@ public class BaseScope implements Scope {
   @Override
   public Scope getLinkedScope() {
     return linkedScope;
+  }
+
+  @Override
+  public Iterator<Symbol> iterator() {
+    return scope.values().iterator();
   }
 }

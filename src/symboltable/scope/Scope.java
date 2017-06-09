@@ -3,7 +3,7 @@ package symboltable.scope;
 
 import symboltable.symbol.Symbol;
 
-public interface Scope {
+public interface Scope extends Iterable<Symbol> {
 
   boolean define(Symbol symbol);
 
