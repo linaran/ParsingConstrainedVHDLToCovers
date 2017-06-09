@@ -14,15 +14,22 @@ import symboltable.symbol.OutSymbol;
 import symboltable.symbol.SignalSymbol;
 import symboltable.symbol.Symbol;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
+
+import static symboltable.symbol.SymbolType.IN;
+import static symboltable.symbol.SymbolType.OUT;
 
 public class SemanticCorrectnessVHDL extends VHDLBaseListener {
 
   private ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
   private Stack<Scope> scopeStack = new Stack<>();
   private GlobalScope globalScope;
+
+  private Set<String> leftSideNamesResolved = new HashSet<>();
+  private Set<String> rightSideNamesResolved = new HashSet<>();
 
   private void saveScope(ParserRuleContext context, Scope scope) {
     scopes.put(context, scope);
@@ -191,9 +198,22 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
   @Override
   public void enterAssignment_expression(VHDLParser.Assignment_expressionContext ctx) {
     Scope currentScope = scopeStack.peek();
-    String leftIdentifier = ctx.identifier().getText();
+    String leftIdentifierName = ctx.identifier().getText();
     int line = ctx.identifier().BASIC_IDENTIFIER().getSymbol().getLine();
-    checkResolve(currentScope, leftIdentifier, line);
+
+    checkForMultipleAssignment(leftIdentifierName, line);
+    checkResolve(currentScope, leftIdentifierName, line);
+  }
+
+  private void checkForMultipleAssignment(String leftIdentifierName, int line) {
+    if (leftSideNamesResolved.contains(leftIdentifierName)) {
+      throw new UnsupportedOperationException(
+          "Identifier " + leftIdentifierName + " already has an assignment. " +
+              "Found on line: " + line
+      );
+    } else {
+      leftSideNamesResolved.add(leftIdentifierName);
+    }
   }
 
   @Override
@@ -201,7 +221,49 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
     Scope currentScope = scopeStack.peek();
     String identifier = ctx.identifier().getText();
     int line = ctx.identifier().BASIC_IDENTIFIER().getSymbol().getLine();
+
+    rightSideNamesResolved.add(identifier);
     checkResolve(currentScope, identifier, line);
+  }
+
+  @Override
+  public void exitArchitecture_details(VHDLParser.Architecture_detailsContext ctx) {
+    Scope currentScope = scopeStack.peek();
+
+    checkSignalUsage(currentScope);
+    checkInOutUsage(currentScope);
+  }
+
+  private void checkSignalUsage(Scope currentScope) {
+    currentScope.forEach(symbol -> {
+      if (!leftSideNamesResolved.contains(symbol.getName())) {
+        throw new UnsupportedOperationException(
+            "Signal " + symbol.getName() + " wasn't assigned an expression."
+        );
+      }
+
+      if (!rightSideNamesResolved.contains(symbol.getName())) {
+        throw new UnsupportedOperationException(
+            "Signal " + symbol.getName() + " wasn't used in an expression."
+        );
+      }
+    });
+  }
+
+  private void checkInOutUsage(Scope currentScope) {
+    currentScope.getLinkedScope().forEach(symbol -> {
+      if (symbol.getType() == OUT && !leftSideNamesResolved.contains(symbol.getName())) {
+        throw new UnsupportedOperationException(
+            "Output identifier " + symbol.getName() + " was defined but not used."
+        );
+      }
+
+      if (symbol.getType() == IN && !rightSideNamesResolved.contains(symbol.getName())) {
+        throw new UnsupportedOperationException(
+            "Input identifier " + symbol.getName() + " was defined but not used."
+        );
+      }
+    });
   }
 
   @Override
