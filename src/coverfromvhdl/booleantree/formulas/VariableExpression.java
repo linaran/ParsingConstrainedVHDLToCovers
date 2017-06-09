@@ -1,15 +1,14 @@
 package coverfromvhdl.booleantree.formulas;
 
 
-import coverfromvhdl.booleantree.BasicFormula;
-import coverfromvhdl.booleantree.Formula;
+import coverfromvhdl.booleantree.BasicExpression;
 
-public class VariableFormula extends BasicFormula {
+public class VariableExpression extends BasicExpression {
 
   private String name;
   private int index;
 
-  public VariableFormula(String name, int index) {
+  public VariableExpression(String name, int index) {
     this.name = name;
     this.index = index;
   }

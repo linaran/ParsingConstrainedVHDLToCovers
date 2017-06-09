@@ -1,17 +1,15 @@
 package coverfromvhdl.booleantree;
 
 
-import java.util.Arrays;
-
-public interface Formula {
+public interface Expression {
 
   Type getType();
 
-  Formula getArg(int i);
+  Expression getArg(int i);
 
   int getArgCount();
 
-  void setArg(int index, Formula formula);
+  void setArg(int index, Expression expression);
 
   public enum Type {
     VARIABLE,
