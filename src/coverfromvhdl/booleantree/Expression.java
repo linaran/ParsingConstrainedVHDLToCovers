@@ -11,7 +11,7 @@ public interface Expression {
 
   void setArg(int index, Expression expression);
 
-  public enum Type {
+  enum Type {
     VARIABLE,
     AND,
     OR,
