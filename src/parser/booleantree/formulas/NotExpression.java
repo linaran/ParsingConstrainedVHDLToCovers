@@ -1,10 +1,10 @@
-package coverfromvhdl.booleantree.formulas;
+package parser.booleantree.formulas;
 
 
-import coverfromvhdl.booleantree.BasicExpression;
-import coverfromvhdl.booleantree.Expression;
+import parser.booleantree.BasicExpression;
+import parser.booleantree.Expression;
 
-import static coverfromvhdl.booleantree.Expression.Type.NOT;
+import static parser.booleantree.Expression.Type.NOT;
 
 public class NotExpression extends BasicExpression {
 

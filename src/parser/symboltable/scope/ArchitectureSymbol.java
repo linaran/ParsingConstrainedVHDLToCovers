@@ -1,10 +1,10 @@
-package symboltable.scope;
+package parser.symboltable.scope;
 
 
-import symboltable.symbol.Symbol;
-import symboltable.symbol.SymbolType;
+import parser.symboltable.symbol.Symbol;
+import parser.symboltable.symbol.SymbolType;
 
-import static symboltable.symbol.SymbolType.ARCHITECTURE;
+import static parser.symboltable.symbol.SymbolType.ARCHITECTURE;
 
 final public class ArchitectureSymbol extends BaseScope implements Symbol {
 

@@ -1,4 +1,4 @@
-package symboltable.symbol;
+package parser.symboltable.symbol;
 
 
 abstract public class BaseSymbol implements Symbol {

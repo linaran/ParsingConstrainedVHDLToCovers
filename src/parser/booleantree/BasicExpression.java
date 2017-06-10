@@ -1,4 +1,4 @@
-package coverfromvhdl.booleantree;
+package parser.booleantree;
 
 
 abstract public class BasicExpression implements Expression {

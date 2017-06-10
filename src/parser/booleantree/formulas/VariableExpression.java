@@ -1,16 +1,14 @@
-package coverfromvhdl.booleantree.formulas;
+package parser.booleantree.formulas;
 
 
-import coverfromvhdl.booleantree.BasicExpression;
+import parser.booleantree.BasicExpression;
 
 public class VariableExpression extends BasicExpression {
 
   private String name;
-  private int index;
 
-  public VariableExpression(String name, int index) {
+  public VariableExpression(String name) {
     this.name = name;
-    this.index = index;
   }
 
   @Override
@@ -25,9 +23,5 @@ public class VariableExpression extends BasicExpression {
 
   public String getName() {
     return name;
-  }
-
-  public int getIndex() {
-    return index;
   }
 }

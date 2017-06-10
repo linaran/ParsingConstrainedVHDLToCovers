@@ -1,32 +1,35 @@
-package coverfromvhdl;
+package parser;
 
 
 import generated.VHDLBaseListener;
 import generated.VHDLParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
-import symboltable.scope.ArchitectureSymbol;
-import symboltable.scope.EntitySymbol;
-import symboltable.scope.GlobalScope;
-import symboltable.scope.Scope;
-import symboltable.symbol.InSymbol;
-import symboltable.symbol.OutSymbol;
-import symboltable.symbol.SignalSymbol;
-import symboltable.symbol.Symbol;
+import parser.symboltable.scope.ArchitectureSymbol;
+import parser.symboltable.scope.EntitySymbol;
+import parser.symboltable.scope.GlobalScope;
+import parser.symboltable.scope.Scope;
+import parser.symboltable.symbol.InSymbol;
+import parser.symboltable.symbol.OutSymbol;
+import parser.symboltable.symbol.SignalSymbol;
+import parser.symboltable.symbol.Symbol;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import static symboltable.symbol.SymbolType.IN;
-import static symboltable.symbol.SymbolType.OUT;
+import static parser.symboltable.symbol.SymbolType.IN;
+import static parser.symboltable.symbol.SymbolType.OUT;
 
 public class SemanticCorrectnessVHDL extends VHDLBaseListener {
 
   private ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
   private Stack<Scope> scopeStack = new Stack<>();
+
   private GlobalScope globalScope;
+  private EntitySymbol storedEntitySymbol;
+  private ArchitectureSymbol storedArchitectureSymbol;
 
   private Set<String> leftSideNamesResolved = new HashSet<>();
   private Set<String> rightSideNamesResolved = new HashSet<>();
@@ -100,6 +103,7 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
     tryDefine(currentScope, entitySymbol, line);
 
     scopeStack.push(entitySymbol);
+    storedEntitySymbol = entitySymbol;
     saveScope(ctx, entitySymbol);
   }
 
@@ -179,6 +183,7 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
     tryDefine(currentScope, architectureSymbol, line);
 
     scopeStack.push(architectureSymbol);
+    storedArchitectureSymbol = architectureSymbol;
     saveScope(ctx, architectureSymbol);
 
     defineSignals(ctx);
@@ -277,5 +282,9 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
 
   public GlobalScope getGlobalScope() {
     return globalScope;
+  }
+
+  public ArchitectureSymbol getArchitectureScope() {
+    return storedArchitectureSymbol;
   }
 }

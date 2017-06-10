@@ -1,7 +1,7 @@
-package symboltable.scope;
+package parser.symboltable.scope;
 
 
-import symboltable.symbol.Symbol;
+import parser.symboltable.symbol.Symbol;
 
 public interface Scope extends Iterable<Symbol> {
 

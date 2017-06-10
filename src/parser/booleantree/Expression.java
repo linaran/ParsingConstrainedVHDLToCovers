@@ -1,4 +1,4 @@
-package coverfromvhdl.booleantree;
+package parser.booleantree;
 
 
 public interface Expression {

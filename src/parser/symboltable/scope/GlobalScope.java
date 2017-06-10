@@ -1,6 +1,6 @@
-package symboltable.scope;
+package parser.symboltable.scope;
 
-import symboltable.symbol.Symbol;
+import parser.symboltable.symbol.Symbol;
 
 final public class GlobalScope extends BaseScope {
 

@@ -1,4 +1,4 @@
-package symboltable.symbol;
+package parser.symboltable.symbol;
 
 
 public class InSymbol extends BaseSymbol {

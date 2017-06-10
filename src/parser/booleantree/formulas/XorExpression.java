@@ -1,8 +1,8 @@
-package coverfromvhdl.booleantree.formulas;
+package parser.booleantree.formulas;
 
 
-import coverfromvhdl.booleantree.BasicExpression;
-import coverfromvhdl.booleantree.Expression;
+import parser.booleantree.BasicExpression;
+import parser.booleantree.Expression;
 
 public class XorExpression extends BasicExpression {
 

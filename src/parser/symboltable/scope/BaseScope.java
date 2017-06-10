@@ -1,10 +1,9 @@
-package symboltable.scope;
+package parser.symboltable.scope;
 
 
 import com.sun.istack.internal.Nullable;
-import symboltable.symbol.Symbol;
+import parser.symboltable.symbol.Symbol;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
