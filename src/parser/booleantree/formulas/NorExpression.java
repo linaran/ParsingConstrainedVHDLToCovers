@@ -16,7 +16,7 @@ public class NorExpression extends BasicExpression {
   }
 
   @Override
-  public int getArgCount() {
+  public int getMinArgCount() {
     return 2;
   }
 }

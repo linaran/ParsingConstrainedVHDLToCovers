@@ -18,7 +18,7 @@ public class AndExpression extends BasicExpression {
   }
 
   @Override
-  public int getArgCount() {
+  public int getMinArgCount() {
     return 2;
   }
 }

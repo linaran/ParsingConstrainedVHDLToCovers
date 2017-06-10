@@ -17,7 +17,7 @@ public class VariableExpression extends BasicExpression {
   }
 
   @Override
-  public int getArgCount() {
+  public int getMinArgCount() {
     return 0;
   }
 

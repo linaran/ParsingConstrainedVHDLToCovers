@@ -16,7 +16,7 @@ public class XorExpression extends BasicExpression {
   }
 
   @Override
-  public int getArgCount() {
+  public int getMinArgCount() {
     return 2;
   }
 }

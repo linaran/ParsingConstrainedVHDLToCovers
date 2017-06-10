@@ -9,6 +9,8 @@ public interface Expression {
 
   int getArgCount();
 
+  int getMinArgCount();
+
   void setArg(int index, Expression expression);
 
   enum Type {

@@ -6,12 +6,13 @@ abstract public class BasicExpression implements Expression {
 
   public BasicExpression(Expression... expressions) {
     if (expressions.length == 0) {
-      this.args = new Expression[getArgCount()];
-    } else if (expressions.length != getArgCount()) {
-      throw new IllegalArgumentException("Wrong argument count.");
-    } else {
+//      Situation for empty node creation.
+      this.args = new Expression[getMinArgCount()];
+    } else if (expressions.length >= getMinArgCount()) {
       this.args = new Expression[expressions.length];
       System.arraycopy(expressions, 0, this.args, 0, expressions.length);
+    } else {
+      throw new IllegalArgumentException("Wrong argument count.");
     }
   }
 
@@ -28,7 +29,12 @@ abstract public class BasicExpression implements Expression {
   }
 
   @Override
-  abstract public int getArgCount();
+  public int getArgCount() {
+    return args.length;
+  }
+
+  @Override
+  abstract public int getMinArgCount();
 
   @Override
   public void setArg(int index, Expression expression) {
