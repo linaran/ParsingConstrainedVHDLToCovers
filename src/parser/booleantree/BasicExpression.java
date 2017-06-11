@@ -1,10 +1,20 @@
 package parser.booleantree;
 
 
+import java.util.Collection;
+
 abstract public class BasicExpression implements Expression {
   private Expression[] args;
 
   public BasicExpression(Expression... expressions) {
+    init(expressions);
+  }
+
+  public BasicExpression(Collection<? extends Expression> expressions) {
+    init(expressions.toArray(new Expression[0]));
+  }
+
+  private void init(Expression... expressions) {
     if (expressions.length == 0) {
 //      Situation for empty node creation.
       this.args = new Expression[getMinArgCount()];
@@ -45,4 +55,24 @@ abstract public class BasicExpression implements Expression {
     args[index] = expression;
   }
 
+  private String print(String prefix, boolean isTail) {
+    StringBuilder retValue = new StringBuilder();
+
+    retValue.append(prefix).append(isTail ? "└── " : "├── ").append(getType()).append("\n");
+    for (int i = 0; i < args.length - 1; i++) {
+      retValue.append(((BasicExpression) args[i])
+          .print(prefix + (isTail ? "    " : "│   "), false));
+    }
+    if (args.length > 0) {
+      retValue.append(((BasicExpression) args[args.length - 1])
+          .print(prefix + (isTail ? "    " : "│   "), true));
+    }
+
+    return retValue.toString();
+  }
+
+  @Override
+  public String toString() {
+    return print("", true);
+  }
 }
