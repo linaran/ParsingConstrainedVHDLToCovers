@@ -5,13 +5,12 @@ import parser.booleantree.Expression;
 import parser.booleantree.formulas.AndExpression;
 import parser.booleantree.formulas.NotExpression;
 import parser.booleantree.formulas.OrExpression;
+import parser.booleantree.formulas.VariableExpression;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static parser.booleantree.Expression.Type.NAND;
-import static parser.booleantree.Expression.Type.NOR;
-import static parser.booleantree.Expression.Type.XOR;
+import static parser.booleantree.Expression.Type.*;
 
 final public class DnfForm {
 
@@ -22,10 +21,14 @@ final public class DnfForm {
   }
 
   public Expression make(Expression expression) {
+    return recursiveMake(expression);
+  }
+
+  private Expression recursiveMake(Expression expression) {
     expressionArgCheck(expression);
     switch (expression.getType()) {
       case VARIABLE:
-        return expression;
+        return variableCase(expression);
       case AND:
         return andCase(expression);
       case OR:
@@ -54,32 +57,69 @@ final public class DnfForm {
     }
   }
 
-  private Expression orCase(Expression expression) {
-    Expression left = make(expression.getArg(0));
-    Expression right = make(expression.getArg(1));
+  private Expression variableCase(Expression expression) {
+    VariableExpression variableExpression = (VariableExpression) expression;
+    return new VariableExpression(variableExpression.getName());
+  }
 
-    return new OrExpression(left, right);
+  private Expression orCase(Expression expression) {
+    Expression left = recursiveMake(expression.getArg(0));
+    Expression right = recursiveMake(expression.getArg(1));
+
+    List<Expression> expressions = new ArrayList<>();
+    expressionExtractionOrCase(left, expressions);
+    expressionExtractionOrCase(right, expressions);
+
+    return new OrExpression(expressions);
+  }
+
+  private void expressionExtractionOrCase(Expression expression, List<Expression> expressions) {
+    if (expression.getType() == OR) {
+      for (int i = 0; i < expression.getArgCount(); i++) {
+        expressions.add(expression.getArg(i));
+      }
+    } else {
+      expressions.add(expression);
+    }
   }
 
   private Expression andCase(Expression expression) {
-    Expression left = make(expression.getArg(0));
-    Expression right = make(expression.getArg(1));
+    Expression left = recursiveMake(expression.getArg(0));
+    Expression right = recursiveMake(expression.getArg(1));
 
-    int leftArgCount = left.getArgCount();
-    int rightArgCount = right.getArgCount();
-    Expression[] clauses = new Expression[leftArgCount * rightArgCount];
+    if (left.getType() == OR || right.getType() == OR) {
+      List<Expression> leftExpressions = new ArrayList<>();
+      List<Expression> rightExpressions = new ArrayList<>();
 
-    int clauseIndex = 0;
-    for (int i = 0; i < leftArgCount; i++) {
-      for (int j = 0; j < rightArgCount; j++) {
-        Expression p = left.getArg(i);
-        Expression q = right.getArg(j);
+      expressionExtractionAndCase(left, leftExpressions);
+      expressionExtractionAndCase(right, rightExpressions);
 
-        clauses[clauseIndex] = new AndExpression(p, q);
+      List<Expression> expressions = new ArrayList<>();
+      for (Expression leftExpression : leftExpressions) {
+        for (Expression rightExpression : rightExpressions) {
+          expressions.add(new AndExpression(leftExpression, rightExpression));
+        }
       }
-    }
 
-    return new OrExpression(clauses);
+      return new OrExpression(expressions);
+    } else {
+      List<Expression> expressions = new ArrayList<>();
+
+      expressionExtractionAndCase(left, expressions);
+      expressionExtractionAndCase(right, expressions);
+
+      return new AndExpression(expressions);
+    }
+  }
+
+  private void expressionExtractionAndCase(Expression expression, List<Expression> expressions) {
+    if (expression.getType() == OR || expression.getType() == AND) {
+      for (int i = 0; i < expression.getArgCount(); i++) {
+        expressions.add(expression.getArg(i));
+      }
+    } else {
+      expressions.add(expression);
+    }
   }
 
   private Expression notCase(Expression expression) {
@@ -87,24 +127,24 @@ final public class DnfForm {
 
 //    First modify expression so De Morgan is applicable.
     if (arg.getType() == XOR || arg.getType() == NOR || arg.getType() == NAND) {
-      arg = make(arg);
+      arg = recursiveMake(arg);
     }
 
     switch (arg.getType()) {
       case VARIABLE:
         return expression;
       case AND:
-        return make(new OrExpression(
+        return recursiveMake(new OrExpression(
             new NotExpression(arg.getArg(0)),
             new NotExpression(arg.getArg(1))
         ));
       case OR:
-        return make(new AndExpression(
+        return recursiveMake(new AndExpression(
             new NotExpression(arg.getArg(0)),
             new NotExpression(arg.getArg(1))
         ));
       case NOT:
-        return make(arg.getArg(0));
+        return recursiveMake(arg.getArg(0));
       default:
         throw new EnumConstantNotPresentException(
             Expression.Type.class,
@@ -114,30 +154,30 @@ final public class DnfForm {
   }
 
   private Expression nandCase(Expression expression) {
-    Expression left = expression.getArg(0);
-    Expression right = expression.getArg(1);
+    Expression left = recursiveMake(expression.getArg(0));
+    Expression right = recursiveMake(expression.getArg(1));
 
-    return make(new OrExpression(
+    return recursiveMake(new OrExpression(
         new NotExpression(left),
         new NotExpression(right)
     ));
   }
 
   private Expression xorCase(Expression expression) {
-    Expression left = expression.getArg(0);
-    Expression right = expression.getArg(1);
+    Expression left = recursiveMake(expression.getArg(0));
+    Expression right = recursiveMake(expression.getArg(1));
 
-    return make(new OrExpression(
+    return recursiveMake(new OrExpression(
         new AndExpression(left, new NotExpression(right)),
         new AndExpression(new NotExpression(left), right)
     ));
   }
 
   private Expression norCase(Expression expression) {
-    Expression left = expression.getArg(0);
-    Expression right = expression.getArg(1);
+    Expression left = recursiveMake(expression.getArg(0));
+    Expression right = recursiveMake(expression.getArg(1));
 
-    return make(new AndExpression(
+    return recursiveMake(new AndExpression(
         new NotExpression(left),
         new NotExpression(right)
     ));
