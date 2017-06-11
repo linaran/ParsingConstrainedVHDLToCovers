@@ -17,9 +17,9 @@ public interface Expression {
     VARIABLE,
     AND,
     OR,
+    NOT,
     NAND,
     NOR,
-    XOR,
-    NOT
+    XOR
   }
 }

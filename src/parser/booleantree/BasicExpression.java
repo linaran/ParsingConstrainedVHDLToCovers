@@ -1,7 +1,11 @@
 package parser.booleantree;
 
 
+import parser.booleantree.formulas.VariableExpression;
+
 import java.util.Collection;
+
+import static parser.booleantree.Expression.Type.VARIABLE;
 
 abstract public class BasicExpression implements Expression {
   private Expression[] args;
@@ -58,7 +62,13 @@ abstract public class BasicExpression implements Expression {
   private String print(String prefix, boolean isTail) {
     StringBuilder retValue = new StringBuilder();
 
-    retValue.append(prefix).append(isTail ? "└── " : "├── ").append(getType()).append("\n");
+    retValue.
+        append(prefix).
+        append(isTail ? "└── " : "├── ").
+        append(getType() == VARIABLE ?
+            getType() + ": " + ((VariableExpression) this).getName() : getType()).
+        append("\n");
+
     for (int i = 0; i < args.length - 1; i++) {
       retValue.append(((BasicExpression) args[i])
           .print(prefix + (isTail ? "    " : "│   "), false));
