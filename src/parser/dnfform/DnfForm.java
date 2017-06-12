@@ -67,20 +67,10 @@ final public class DnfForm {
     Expression right = recursiveMake(expression.getArg(1));
 
     List<Expression> expressions = new ArrayList<>();
-    expressionExtractionOrCase(left, expressions);
-    expressionExtractionOrCase(right, expressions);
+    expressionExtraction(left, expressions, OR);
+    expressionExtraction(right, expressions, OR);
 
     return new OrExpression(expressions);
-  }
-
-  private void expressionExtractionOrCase(Expression expression, List<Expression> expressions) {
-    if (expression.getType() == OR) {
-      for (int i = 0; i < expression.getArgCount(); i++) {
-        expressions.add(expression.getArg(i));
-      }
-    } else {
-      expressions.add(expression);
-    }
   }
 
   private Expression andCase(Expression expression) {
@@ -91,13 +81,15 @@ final public class DnfForm {
       List<Expression> leftExpressions = new ArrayList<>();
       List<Expression> rightExpressions = new ArrayList<>();
 
-      expressionExtractionAndCase(left, leftExpressions);
-      expressionExtractionAndCase(right, rightExpressions);
+      expressionExtraction(left, leftExpressions, OR);
+      expressionExtraction(right, rightExpressions, OR);
 
       List<Expression> expressions = new ArrayList<>();
       for (Expression leftExpression : leftExpressions) {
         for (Expression rightExpression : rightExpressions) {
-          expressions.add(new AndExpression(leftExpression, rightExpression));
+          expressions.add(
+              recursiveMake(new AndExpression(leftExpression, rightExpression))
+          );
         }
       }
 
@@ -105,15 +97,19 @@ final public class DnfForm {
     } else {
       List<Expression> expressions = new ArrayList<>();
 
-      expressionExtractionAndCase(left, expressions);
-      expressionExtractionAndCase(right, expressions);
+      expressionExtraction(left, expressions, AND);
+      expressionExtraction(right, expressions, AND);
 
       return new AndExpression(expressions);
     }
   }
 
-  private void expressionExtractionAndCase(Expression expression, List<Expression> expressions) {
-    if (expression.getType() == OR || expression.getType() == AND) {
+  private void expressionExtraction(
+      Expression expression,
+      List<Expression> expressions,
+      Expression.Type type
+  ) {
+    if (expression.getType() == type) {
       for (int i = 0; i < expression.getArgCount(); i++) {
         expressions.add(expression.getArg(i));
       }
