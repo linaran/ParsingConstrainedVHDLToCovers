@@ -1,7 +1,6 @@
-package parser.dnfform;
+package parser.booleantree;
 
 
-import parser.booleantree.Expression;
 import parser.booleantree.formulas.AndExpression;
 import parser.booleantree.formulas.NotExpression;
 import parser.booleantree.formulas.OrExpression;
