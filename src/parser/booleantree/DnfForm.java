@@ -24,21 +24,25 @@ final public class DnfForm {
   }
 
   private Expression recursiveMake(Expression expression) {
-    expressionArgCheck(expression);
     switch (expression.getType()) {
       case VARIABLE:
+        expressionArgCheck(expression);
         return variableCase(expression);
       case AND:
         return andCase(expression);
       case OR:
         return orCase(expression);
       case NAND:
+        expressionArgCheck(expression);
         return nandCase(expression);
       case NOR:
+        expressionArgCheck(expression);
         return norCase(expression);
       case XOR:
+        expressionArgCheck(expression);
         return xorCase(expression);
       case NOT:
+        expressionArgCheck(expression);
         return notCase(expression);
       default:
         throw new EnumConstantNotPresentException(
@@ -62,44 +66,116 @@ final public class DnfForm {
   }
 
   private Expression orCase(Expression expression) {
-    Expression left = recursiveMake(expression.getArg(0));
-    Expression right = recursiveMake(expression.getArg(1));
+//    Expression left = recursiveMake(expression.getArg(0));
+//    Expression right = recursiveMake(expression.getArg(1));
+//
+//    List<Expression> expressions = new ArrayList<>();
+//    expressionExtraction(left, expressions, OR);
+//    expressionExtraction(right, expressions, OR);
+
+    List<Expression> dnfChildren = new ArrayList<>();
+    for (int i = 0; i < expression.getArgCount(); i++) {
+      dnfChildren.add(recursiveMake(expression.getArg(i)));
+    }
 
     List<Expression> expressions = new ArrayList<>();
-    expressionExtraction(left, expressions, OR);
-    expressionExtraction(right, expressions, OR);
+    for (Expression dnfChild : dnfChildren) {
+      expressionExtraction(dnfChild, expressions, OR);
+    }
 
     return new OrExpression(expressions);
   }
 
   private Expression andCase(Expression expression) {
-    Expression left = recursiveMake(expression.getArg(0));
-    Expression right = recursiveMake(expression.getArg(1));
+//    Expression left = recursiveMake(expression.getArg(0));
+//    Expression right = recursiveMake(expression.getArg(1));
+//
+//    if (left.getType() == OR || right.getType() == OR) {
+//      List<Expression> leftExpressions = new ArrayList<>();
+//      List<Expression> rightExpressions = new ArrayList<>();
+//
+//      expressionExtraction(left, leftExpressions, OR);
+//      expressionExtraction(right, rightExpressions, OR);
+//
+//      List<Expression> expressions = new ArrayList<>();
+//      for (Expression leftExpression : leftExpressions) {
+//        for (Expression rightExpression : rightExpressions) {
+//          expressions.add(
+//              recursiveMake(new AndExpression(leftExpression, rightExpression))
+//          );
+//        }
+//      }
+//
+//      return new OrExpression(expressions);
+//    } else {
+//      List<Expression> expressions = new ArrayList<>();
+//
+//      expressionExtraction(left, expressions, AND);
+//      expressionExtraction(right, expressions, AND);
+//
+//      return new AndExpression(expressions);
+//    }
 
-    if (left.getType() == OR || right.getType() == OR) {
-      List<Expression> leftExpressions = new ArrayList<>();
-      List<Expression> rightExpressions = new ArrayList<>();
+    List<Expression> dnfChildren = new ArrayList<>();
+    boolean hasOr = false;
+    for (int i = 0; i < expression.getArgCount(); i++) {
+      dnfChildren.add(recursiveMake(expression.getArg(i)));
+      if (dnfChildren.get(i).getType() == OR) {
+        hasOr = true;
+      }
+    }
 
-      expressionExtraction(left, leftExpressions, OR);
-      expressionExtraction(right, rightExpressions, OR);
-
-      List<Expression> expressions = new ArrayList<>();
-      for (Expression leftExpression : leftExpressions) {
-        for (Expression rightExpression : rightExpressions) {
-          expressions.add(
-              recursiveMake(new AndExpression(leftExpression, rightExpression))
-          );
-        }
+    if (hasOr) {
+      List<List<Expression>> extractedExpressionsLists = new ArrayList<>();
+      for (Expression dnfChild : dnfChildren) {
+        List<Expression> childExpressions = new ArrayList<>();
+        expressionExtraction(dnfChild, childExpressions, OR);
+        extractedExpressionsLists.add(childExpressions);
       }
 
-      return new OrExpression(expressions);
+      List<List<Expression>> expressionPermutations = new ArrayList<>();
+      permutationGenerator(
+          extractedExpressionsLists,
+          expressionPermutations,
+          0,
+          new ArrayList<>()
+      );
+
+      List<Expression> andExpressions = new ArrayList<>();
+      for (List<Expression> expressions : expressionPermutations) {
+        andExpressions.add(recursiveMake(new AndExpression(expressions)));
+      }
+
+      return new OrExpression(andExpressions);
     } else {
-      List<Expression> expressions = new ArrayList<>();
+      List<Expression> extractedExpressions = new ArrayList<>();
+      for (Expression dnfChild : dnfChildren) {
+        expressionExtraction(dnfChild, extractedExpressions, AND);
+      }
 
-      expressionExtraction(left, expressions, AND);
-      expressionExtraction(right, expressions, AND);
+//      if (extractedExpressions.size() == 3) {
+//        throw new UnsupportedOperationException("WAT");
+//      }
 
-      return new AndExpression(expressions);
+      return new AndExpression(extractedExpressions);
+    }
+  }
+
+  private void permutationGenerator(
+      List<List<Expression>> lists,
+      List<List<Expression>> result,
+      int depth,
+      List<Expression> current
+  ) {
+    if (depth == lists.size()) {
+      result.add(new ArrayList<>(current));
+      return;
+    }
+
+    for (int i = 0; i < lists.get(depth).size(); i++) {
+      current.add(lists.get(depth).get(i));
+      permutationGenerator(lists, result, depth + 1, current);
+      current.remove(current.size() - 1);
     }
   }
 
