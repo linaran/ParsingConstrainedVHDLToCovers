@@ -15,7 +15,7 @@ public class Architecture {
 
   private List<ArchitectureAssignment> architectureAssignments = new ArrayList<>();
 
-  private List<InSymbol> inputSymbols = new ArrayList<>();
+  private List<InSymbol> inSymbols = new ArrayList<>();
   private List<OutSymbol> outSymbols = new ArrayList<>();
   private List<SignalSymbol> signalSymbols = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class Architecture {
     for (Symbol symbol : architectureScope.getLinkedScope()) {
       switch (symbol.getType()) {
         case IN:
-          inputSymbols.add((InSymbol) symbol);
+          inSymbols.add((InSymbol) symbol);
           nameToIndex.put(symbol.getName(), index++);
           break;
         case OUT:
@@ -52,8 +52,24 @@ public class Architecture {
     return architectureAssignments.get(i);
   }
 
-  public InSymbol getInputSymbol(int i) {
-    return inputSymbols.get(i);
+  public int getArchitectureAssignmentCount() {
+    return architectureAssignments.size();
+  }
+
+  public int getInSymbolCount() {
+    return inSymbols.size();
+  }
+
+  public int getOutSymbolCount() {
+    return outSymbols.size();
+  }
+
+  public int getSignalSymbolCount() {
+    return signalSymbols.size();
+  }
+
+  public InSymbol getInSymbol(int i) {
+    return inSymbols.get(i);
   }
 
   public OutSymbol getOutSymbol(int i) {
@@ -64,8 +80,8 @@ public class Architecture {
     return signalSymbols.get(i);
   }
 
-  public Iterator<InSymbol> inputIterator() {
-    return inputSymbols.iterator();
+  public Iterator<InSymbol> inIterator() {
+    return inSymbols.iterator();
   }
 
   public Iterator<OutSymbol> outputIterator() {

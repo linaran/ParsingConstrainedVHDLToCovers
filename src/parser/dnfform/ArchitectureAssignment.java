@@ -7,7 +7,7 @@ import parser.symboltable.symbol.Symbol;
 public class ArchitectureAssignment {
 
   final private Symbol leftSide;
-  final private Expression expression;
+  private Expression expression;
 
   public ArchitectureAssignment(Symbol leftSide, Expression expression) {
     this.leftSide = leftSide;
@@ -20,6 +20,10 @@ public class ArchitectureAssignment {
 
   public Expression getExpression() {
     return expression;
+  }
+
+  public void setExpression(Expression expression) {
+    this.expression = expression;
   }
 
   @Override
