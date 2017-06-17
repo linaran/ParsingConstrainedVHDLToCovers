@@ -20,6 +20,8 @@ public interface Expression extends Iterable<Expression> {
     NOT,
     NAND,
     NOR,
-    XOR
+    XOR,
+    TRUE,
+    FALSE
   }
 }

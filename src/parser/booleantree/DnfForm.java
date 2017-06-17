@@ -3,14 +3,26 @@ package parser.booleantree;
 
 import parser.booleantree.formulas.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static parser.booleantree.Expression.Type.*;
 
 final public class DnfForm {
 
   private static DnfForm instance = new DnfForm();
+
+  private static Set<Expression.Type> basicTypes;
+
+  static {
+    basicTypes = new HashSet<>(Arrays.asList(
+        AND,
+        OR,
+        NOT,
+        TRUE,
+        FALSE,
+        NOT
+    ));
+  }
 
   public static DnfForm instance() {
     return instance;
@@ -25,6 +37,10 @@ final public class DnfForm {
       case VARIABLE:
         expressionArgCheck(expression);
         return variableCase(expression);
+      case FALSE:
+        return expression;
+      case TRUE:
+        return expression;
       case AND:
 //        expressionArgCheck(expression);
         return andCase(expression);
@@ -65,13 +81,6 @@ final public class DnfForm {
   }
 
   private Expression orCase(Expression expression) {
-//    Expression left = recursiveMake(expression.getArg(0));
-//    Expression right = recursiveMake(expression.getArg(1));
-//
-//    List<Expression> expressions = new ArrayList<>();
-//    expressionExtraction(left, expressions, OR);
-//    expressionExtraction(right, expressions, OR);
-
     List<Expression> dnfChildren = new ArrayList<>();
     for (Expression arg : expression) {
       dnfChildren.add(recursiveMake(arg));
@@ -113,7 +122,12 @@ final public class DnfForm {
 
       List<Expression> andExpressions = new ArrayList<>();
       for (List<Expression> expressions : expressionPermutations) {
-        andExpressions.add(recursiveMake(new AndExpression(expressions)));
+        NoDuplicateVariableAndExpression and =
+            new NoDuplicateVariableAndExpression(expressions);
+
+        if (!and.isConstantFalse()) {
+          andExpressions.add(recursiveMake(and));
+        }
       }
 
       return new OrExpression(andExpressions);
@@ -123,7 +137,13 @@ final public class DnfForm {
         expressionExtraction(dnfChild, extractedExpressions, AND);
       }
 
-      return new AndExpression(extractedExpressions);
+      NoDuplicateVariableAndExpression and =
+          new NoDuplicateVariableAndExpression(extractedExpressions);
+      if (!and.isConstantFalse()) {
+        return and;
+      } else {
+        return new FalseConstant();
+      }
     }
   }
 
@@ -163,18 +183,27 @@ final public class DnfForm {
     Expression arg = expression.getArg(0);
 
 //    First modify expression so De Morgan is applicable.
-    Expression.Type type = arg.getType();
-    if (type != AND && type != NOT && type != OR && type != VARIABLE) {
+    if (!basicTypes.contains(arg.getType())) {
       arg = recursiveMake(arg);
     }
 
     switch (arg.getType()) {
       case VARIABLE:
         return expression;
+      case FALSE:
+        return new TrueConstant();
+      case TRUE:
+        return new FalseConstant();
       case AND:
         return recursiveMake(new OrExpression(negatedArgsOf(arg)));
       case OR:
-        return recursiveMake(new AndExpression(negatedArgsOf(arg)));
+        NoDuplicateVariableAndExpression and =
+            new NoDuplicateVariableAndExpression(negatedArgsOf(arg));
+        if (!and.isConstantFalse()) {
+          return recursiveMake(and);
+        } else {
+          return new FalseConstant();
+        }
       case NOT:
         return recursiveMake(arg.getArg(0));
       default:
