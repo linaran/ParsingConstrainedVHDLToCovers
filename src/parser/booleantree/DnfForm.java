@@ -127,6 +127,8 @@ final public class DnfForm {
 
         if (!and.isConstantFalse()) {
           andExpressions.add(recursiveMake(and));
+        } else {
+          andExpressions.add(new FalseConstant());
         }
       }
 
