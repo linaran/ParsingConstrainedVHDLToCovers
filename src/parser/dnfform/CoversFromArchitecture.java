@@ -43,6 +43,12 @@ public class CoversFromArchitecture {
       } else if (expression.getType() == TRUE) {
         Cube cube = new Cube(getTotalInputCount(), 1);
         covers[i] = new Cover(cube);
+      } else if (expression.getType() == VARIABLE) {
+        VariableExpression variable = (VariableExpression) expression;
+        covers[i] = processVariableExpression(variable, false);
+      } else if (expression.getType() == NOT && expression.getArg(0).getType() == VARIABLE) {
+        VariableExpression variable = (VariableExpression) expression.getArg(0);
+        covers[i] = processVariableExpression(variable, true);
       } else {
         onlyDnfSupported();
       }
@@ -53,6 +59,19 @@ public class CoversFromArchitecture {
 
   private void onlyDnfSupported() {
     throw new UnsupportedOperationException("Only DNF forms supported. See DnfForm#make.");
+  }
+
+  private Cover processVariableExpression(VariableExpression expressions, boolean isNegated) {
+    int inputIndex = architecture.inputIdentifierToIndex(expressions.getName());
+    Cover cover = new Cover(getTotalInputCount(), 1);
+
+    if (isNegated) {
+      cover.add(cover.generateVariableCube(inputIndex).inputComplement());
+    } else {
+      cover.add(cover.generateVariableCube(inputIndex));
+    }
+
+    return cover;
   }
 
   private Cube processAndExpression(Expression expression) {
