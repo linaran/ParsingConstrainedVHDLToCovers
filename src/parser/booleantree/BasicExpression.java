@@ -3,12 +3,12 @@ package parser.booleantree;
 
 import parser.booleantree.formulas.VariableExpression;
 
-import java.util.Collection;
+import java.util.*;
 
 import static parser.booleantree.Expression.Type.VARIABLE;
 
 abstract public class BasicExpression implements Expression {
-  private Expression[] args;
+  protected List<Expression> args = new ArrayList<>();
 
   public BasicExpression(Expression... expressions) {
     init(expressions);
@@ -21,10 +21,17 @@ abstract public class BasicExpression implements Expression {
   private void init(Expression... expressions) {
     if (expressions.length == 0) {
 //      Situation for empty node creation.
-      this.args = new Expression[getMinArgCount()];
+      for (int i = 0; i < getMinArgCount(); i++) {
+        this.args.add(null);
+      }
     } else if (expressions.length >= getMinArgCount()) {
-      this.args = new Expression[expressions.length];
-      System.arraycopy(expressions, 0, this.args, 0, expressions.length);
+//      this.args = new Expression[expressions.length];
+//      System.arraycopy(expressions, 0, this.args, 0, expressions.length);
+      for (Expression expression : expressions) {
+        if (expression != null) {
+          args.add(expression);
+        }
+      }
     } else {
       throw new IllegalArgumentException("Wrong argument count.");
     }
@@ -35,16 +42,16 @@ abstract public class BasicExpression implements Expression {
 
   @Override
   public Expression getArg(int i) {
-    if (i < 0 || i >= args.length) {
+    if (i < 0 || i >= args.size()) {
       throw new IndexOutOfBoundsException("Index out of bounds.");
     }
 
-    return args[i];
+    return args.get(i);
   }
 
   @Override
   public int getArgCount() {
-    return args.length;
+    return args.size();
   }
 
   @Override
@@ -52,11 +59,11 @@ abstract public class BasicExpression implements Expression {
 
   @Override
   public void setArg(int index, Expression expression) {
-    if (index < 0 || index >= args.length) {
+    if (index < 0 || index >= args.size()) {
       throw new IndexOutOfBoundsException("Index out of bounds.");
     }
 
-    args[index] = expression;
+    args.set(index, expression);
   }
 
   private String print(String prefix, boolean isTail) {
@@ -69,12 +76,12 @@ abstract public class BasicExpression implements Expression {
             getType() + ": " + ((VariableExpression) this).getName() : getType()).
         append("\n");
 
-    for (int i = 0; i < args.length - 1; i++) {
-      retValue.append(((BasicExpression) args[i])
+    for (int i = 0; i < args.size() - 1; i++) {
+      retValue.append(((BasicExpression) args.get(i))
           .print(prefix + (isTail ? "    " : "│   "), false));
     }
-    if (args.length > 0) {
-      retValue.append(((BasicExpression) args[args.length - 1])
+    if (args.size() > 0) {
+      retValue.append(((BasicExpression) args.get(args.size() - 1))
           .print(prefix + (isTail ? "    " : "│   "), true));
     }
 
@@ -84,5 +91,10 @@ abstract public class BasicExpression implements Expression {
   @Override
   public String toString() {
     return print("", true);
+  }
+
+  @Override
+  public Iterator<Expression> iterator() {
+    return args.iterator();
   }
 }
