@@ -38,6 +38,11 @@ public class CoversFromArchitecture {
       } else if (expression.getType() == AND) {
         Cube cube = processAndExpression(expression);
         covers[i] = new Cover(cube);
+      } else if (expression.getType() == FALSE) {
+        covers[i] = new Cover(getTotalInputCount(), 1);
+      } else if (expression.getType() == TRUE) {
+        Cube cube = new Cube(getTotalInputCount(), 1);
+        covers[i] = new Cover(cube);
       } else {
         onlyDnfSupported();
       }
@@ -57,7 +62,7 @@ public class CoversFromArchitecture {
     for (int i = 0; i < expression.getArgCount(); i++) {
       Expression variable = expression.getArg(i);
       String variableName = retrieveName(variable);
-      int cubeIndex = architecture.identifierNameToIndex(variableName);
+      int cubeIndex = architecture.inputIdentifierToIndex(variableName);
       boolean isNegated = isNegated(variable);
 
       InputState newState = isNegated ? ZERO : ONE;
@@ -83,7 +88,7 @@ public class CoversFromArchitecture {
 
       if (child.getType() == VARIABLE || child.getType() == NOT) {
         String variableName = retrieveName(child);
-        int cubeIndex = architecture.identifierNameToIndex(variableName);
+        int cubeIndex = architecture.inputIdentifierToIndex(variableName);
         InputState newState = isNegated(child) ? ZERO : ONE;
 
         Cube cube = new Cube(inputCount, 1);
@@ -92,7 +97,9 @@ public class CoversFromArchitecture {
       } else if (child.getType() == AND) {
         Cube cube = processAndExpression(child);
         cover.add(cube);
-      } else {
+      } else if (child.getType() == TRUE) {
+        cover.add(new Cube(inputCount, 1));
+      } else if (child.getType() != FALSE) {
         onlyDnfSupported();
       }
     }
@@ -128,6 +135,10 @@ public class CoversFromArchitecture {
     for (int i = 0; i < cube.inputLength(); i++) {
       cube.setInput(ZERO, i);
     }
+  }
+
+  private int getTotalInputCount() {
+    return architecture.getInSymbolCount() + architecture.getSignalSymbolCount();
   }
 
 }
