@@ -1,7 +1,7 @@
 package parser.booleantree;
 
 
-public interface Expression {
+public interface Expression extends Iterable<Expression> {
 
   Type getType();
 
