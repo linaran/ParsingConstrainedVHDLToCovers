@@ -229,6 +229,14 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
 
     rightSideNamesResolved.add(identifier);
     checkResolve(currentScope, identifier, line);
+
+    Symbol symbol = currentScope.resolve(identifier);
+    if (symbol.getType() == OUT) {
+      throw new UnsupportedOperationException(
+          "Entity output " + identifier + " used as input or signal" +
+              "Found on line: " + line
+      );
+    }
   }
 
   @Override
