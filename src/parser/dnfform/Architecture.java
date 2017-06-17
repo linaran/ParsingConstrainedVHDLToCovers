@@ -19,28 +19,31 @@ public class Architecture {
   private List<OutSymbol> outSymbols = new ArrayList<>();
   private List<SignalSymbol> signalSymbols = new ArrayList<>();
 
-  private Map<String, Integer> nameToIndex = new HashMap<>();
+  private Map<String, Integer> inputNameToIndex = new HashMap<>();
+  private Map<String, Integer> outputNameToIndex = new HashMap<>();
 
   public Architecture(String architectureName, ArchitectureSymbol architectureScope) {
     this.architectureName = architectureName;
 
-    int index = 0;
+    int inputIndex = 0;
+    int outputIndex = 0;
 
     for (Symbol symbol : architectureScope.getLinkedScope()) {
       switch (symbol.getType()) {
         case IN:
           inSymbols.add((InSymbol) symbol);
-          nameToIndex.put(symbol.getName(), index++);
+          inputNameToIndex.put(symbol.getName(), inputIndex++);
           break;
         case OUT:
           outSymbols.add((OutSymbol) symbol);
+          outputNameToIndex.put(symbol.getName(), outputIndex++);
           break;
       }
     }
 
     for (Symbol symbol : architectureScope) {
       signalSymbols.add((SignalSymbol) symbol);
-      nameToIndex.put(symbol.getName(), index++);
+      inputNameToIndex.put(symbol.getName(), inputIndex++);
     }
   }
 
@@ -100,7 +103,11 @@ public class Architecture {
     return architectureName;
   }
 
-  public int identifierNameToIndex(String symbolName) {
-    return nameToIndex.getOrDefault(symbolName, -1);
+  public int inputIdentifierToIndex(String symbolName) {
+    return inputNameToIndex.getOrDefault(symbolName, -1);
+  }
+
+  public int outputIdentifierToIndex(String symbolName) {
+    return outputNameToIndex.getOrDefault(symbolName, -1);
   }
 }
