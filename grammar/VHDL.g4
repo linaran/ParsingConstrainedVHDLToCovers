@@ -77,10 +77,16 @@ LETTER
   :  'a'..'z' | 'A'..'Z'
   ;
 
+BOOLEAN_CONST
+    : '\'0\''
+    | '\'1\''
+    ;
+
 // Rules
 
 file
     : entity_declaration architecture
+    | EOF
     ;
 
 entity_declaration
@@ -137,6 +143,7 @@ expression
     | unary_operator expression             #expressionUnaryOperator
     | expression binary_operator expression #expressionBinaryOperator
     | LPARENT expression RPARENT            #expressionParentheses
+    | BOOLEAN_CONST                         #expressionBooleanConst
     ;
 
 unary_operator

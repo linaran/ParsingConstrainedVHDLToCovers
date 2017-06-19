@@ -183,6 +183,18 @@ public class VHDLBaseListener implements VHDLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExpressionBooleanConst(VHDLParser.ExpressionBooleanConstContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpressionBooleanConst(VHDLParser.ExpressionBooleanConstContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}

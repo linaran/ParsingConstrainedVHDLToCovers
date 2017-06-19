@@ -114,6 +114,13 @@ public class VHDLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements V
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitExpressionBooleanConst(VHDLParser.ExpressionBooleanConstContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitExpressionBinaryOperator(VHDLParser.ExpressionBinaryOperatorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

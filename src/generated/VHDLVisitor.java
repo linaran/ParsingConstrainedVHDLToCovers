@@ -96,6 +96,13 @@ public interface VHDLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code expressionBooleanConst}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionBooleanConst(VHDLParser.ExpressionBooleanConstContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code expressionBinaryOperator}
 	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree

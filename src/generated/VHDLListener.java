@@ -151,6 +151,18 @@ public interface VHDLListener extends ParseTreeListener {
 	 */
 	void exitExpressionParentheses(VHDLParser.ExpressionParenthesesContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code expressionBooleanConst}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionBooleanConst(VHDLParser.ExpressionBooleanConstContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionBooleanConst}
+	 * labeled alternative in {@link VHDLParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionBooleanConst(VHDLParser.ExpressionBooleanConstContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code expressionBinaryOperator}
 	 * labeled alternative in {@link VHDLParser#expression}.
 	 * @param ctx the parse tree
