@@ -7,6 +7,8 @@ import generated.VHDLBaseVisitor;
 import generated.VHDLLexer;
 import generated.VHDLParser;
 import generated.VHDLVisitor;
+import org.antlr.v4.runtime.BailErrorStrategy;
+import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
@@ -33,11 +35,6 @@ public class Test {
     VHDLParser parser = new VHDLParser(tokens);
 
     listener(parser);
-  }
-
-  public static void visitor(VHDLParser parser) {
-    VHDLVisitor<Integer> visitor = new VHDLBaseVisitor<>();
-    visitor.visitFile(parser.file());
   }
 
   public static void listener(VHDLParser parser) {
