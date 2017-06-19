@@ -24,8 +24,17 @@ public class ArchitectureFromVHDL {
   private ArchitectureFromVHDL() {
   }
 
-  public Architecture loadArchitecture(String source) throws IOException {
+  public Architecture loadArchitectureFromFile(String source) throws IOException {
     VHDLLexer lexer = new VHDLLexer(CharStreams.fromFileName(source));
+    return loadArchitecture(lexer);
+  }
+
+  public Architecture loadArchitectureFromString(String inputText) {
+    VHDLLexer lexer = new VHDLLexer(CharStreams.fromString(inputText));
+    return loadArchitecture(lexer);
+  }
+
+  private Architecture loadArchitecture(VHDLLexer lexer) {
     lexer.removeErrorListeners();
     lexer.addErrorListener(ThrowingErrorListener.instance);
 
