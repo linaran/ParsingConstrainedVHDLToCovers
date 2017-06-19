@@ -31,7 +31,6 @@ public class Test {
          iter.hasNext();
         ) {
       ArchitectureAssignment assignment = iter.next();
-      assignment.setExpression(DnfForm.instance().make(assignment.getExpression()));
       System.out.println(assignment.getExpression());
     }
 

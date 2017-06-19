@@ -7,11 +7,14 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import parser.booleantree.DnfForm;
 import parser.models.Architecture;
+import parser.models.ArchitectureAssignment;
 import parser.symboltable.scope.GlobalScope;
 import parser.symboltable.scope.Scope;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 public class ArchitectureFromVHDL {
 
@@ -58,6 +61,15 @@ public class ArchitectureFromVHDL {
 
     ParseFormulasVisitor visitor = new ParseFormulasVisitor(scopes);
     visitor.visit(fileContext);
-    return visitor.getArchitecture();
+
+    Architecture architecture = visitor.getArchitecture();
+    for (Iterator<ArchitectureAssignment> iter = architecture.assignmentIterator();
+         iter.hasNext();
+        ) {
+      ArchitectureAssignment assignment = iter.next();
+      assignment.setExpression(DnfForm.instance().make(assignment.getExpression()));
+    }
+
+    return architecture;
   }
 }
