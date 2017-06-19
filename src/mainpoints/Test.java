@@ -13,8 +13,10 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import parser.ArchitectureFromVHDL;
 import parser.ParseFormulasVisitor;
 import parser.SemanticCorrectnessVHDL;
+import parser.ThrowingErrorListener;
 import parser.dnfform.Architecture;
 import parser.dnfform.ArchitectureAssignment;
 import parser.booleantree.DnfForm;
@@ -30,30 +32,11 @@ import java.util.Iterator;
 public class Test {
 
   public static void main(String[] args) throws IOException {
-    VHDLLexer lexer = new VHDLLexer(CharStreams.fromFileName("vhdl-example/dataflow.vhd"));
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-    VHDLParser parser = new VHDLParser(tokens);
-
-    listener(parser);
+    Architecture architecture = ArchitectureFromVHDL.instance().loadArchitecture("vhdl-example/dataflow.vhd");
+    listener(architecture);
   }
 
-  public static void listener(VHDLParser parser) {
-    VHDLParser.FileContext fileContext = parser.file();
-    ParseTreeWalker parseTreeWalker = new ParseTreeWalker();
-    SemanticCorrectnessVHDL listener = new SemanticCorrectnessVHDL();
-
-    parseTreeWalker.walk(listener, fileContext);
-    ParseTreeProperty<Scope> scopes = listener.getScopes();
-    GlobalScope globalScope = listener.getGlobalScope();
-
-    if (scopes == null || globalScope == null) {
-      return;
-    }
-
-    ParseFormulasVisitor visitor = new ParseFormulasVisitor(scopes);
-    visitor.visit(fileContext);
-    Architecture architecture = visitor.getArchitecture();
-
+  public static void listener(Architecture architecture) {
     for (Iterator<ArchitectureAssignment> iter = architecture.assignmentIterator();
          iter.hasNext();
         ) {
@@ -63,7 +46,8 @@ public class Test {
     }
 
     System.out.println("To Cover");
-    Cover[] covers = CoversFromArchitecture.instance().produceCovers(architecture);
+//    Cover[] covers = CoversFromArchitecture.instance().produceCovers(architecture);
+    Cover[] covers = architecture.generateCovers();
     printCoverArray(covers);
 
     System.out.println("Minimization");
