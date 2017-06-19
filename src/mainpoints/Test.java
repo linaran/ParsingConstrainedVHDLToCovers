@@ -3,30 +3,13 @@ package mainpoints;
 
 import espresso.boolFunction.Cover;
 import espresso.minimizers.espressoMinimizer.SingleOutputEspressoMinimizer;
-import generated.VHDLBaseVisitor;
-import generated.VHDLLexer;
-import generated.VHDLParser;
-import generated.VHDLVisitor;
-import org.antlr.v4.runtime.BailErrorStrategy;
-import org.antlr.v4.runtime.BaseErrorListener;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import parser.ArchitectureFromVHDL;
-import parser.ParseFormulasVisitor;
-import parser.SemanticCorrectnessVHDL;
-import parser.ThrowingErrorListener;
-import parser.dnfform.Architecture;
-import parser.dnfform.ArchitectureAssignment;
+import parser.models.Architecture;
+import parser.models.ArchitectureAssignment;
 import parser.booleantree.DnfForm;
-import parser.dnfform.CoverMinimization;
-import parser.dnfform.CoversFromArchitecture;
-import parser.symboltable.scope.GlobalScope;
-import parser.symboltable.scope.Scope;
+import parser.models.CoverMinimization;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class Test {

@@ -1,4 +1,4 @@
-package parser.dnfform;
+package parser.models;
 
 
 import parser.booleantree.Expression;

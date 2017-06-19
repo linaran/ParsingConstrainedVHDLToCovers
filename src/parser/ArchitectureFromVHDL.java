@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import parser.dnfform.Architecture;
+import parser.models.Architecture;
 import parser.symboltable.scope.GlobalScope;
 import parser.symboltable.scope.Scope;
 

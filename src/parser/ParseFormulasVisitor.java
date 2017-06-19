@@ -3,8 +3,8 @@ package parser;
 
 import parser.booleantree.Expression;
 import parser.booleantree.formulas.*;
-import parser.dnfform.Architecture;
-import parser.dnfform.ArchitectureAssignment;
+import parser.models.Architecture;
+import parser.models.ArchitectureAssignment;
 import generated.VHDLBaseVisitor;
 import generated.VHDLParser;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
