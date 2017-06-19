@@ -9,6 +9,7 @@ import generated.VHDLBaseVisitor;
 import generated.VHDLParser;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import parser.symboltable.scope.ArchitectureSymbol;
+import parser.symboltable.scope.EntitySymbol;
 import parser.symboltable.scope.Scope;
 import parser.symboltable.symbol.Symbol;
 
@@ -32,9 +33,14 @@ public class ParseFormulasVisitor extends VHDLBaseVisitor<Expression> {
   @Override
   public Expression visitArchitecture(VHDLParser.ArchitectureContext ctx) {
     currentScope = scopes.get(ctx);
+
+    ArchitectureSymbol archSymbol = (ArchitectureSymbol) currentScope;
+    EntitySymbol entitySymbol = (EntitySymbol) currentScope.getLinkedScope();
+
+    String entityName = entitySymbol.getName();
     String architectureName = ctx.identifier(0).getText();
 
-    architecture = new Architecture(architectureName, (ArchitectureSymbol) currentScope);
+    architecture = new Architecture(entityName, architectureName, archSymbol);
 
     return visit(ctx.architecture_details());
   }

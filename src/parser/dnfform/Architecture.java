@@ -13,6 +13,7 @@ import java.util.*;
 public class Architecture {
 
   private String architectureName;
+  private String entityName;
 
   private List<ArchitectureAssignment> architectureAssignments = new ArrayList<>();
 
@@ -25,8 +26,9 @@ public class Architecture {
 
   private Cover[] coverCache;
 
-  public Architecture(String architectureName, ArchitectureSymbol architectureScope) {
+  public Architecture(String entityName, String architectureName, ArchitectureSymbol architectureScope) {
     this.architectureName = architectureName;
+    this.entityName = entityName;
 
     int inputIndex = 0;
     int outputIndex = 0;
@@ -104,6 +106,10 @@ public class Architecture {
 
   public String getArchitectureName() {
     return architectureName;
+  }
+
+  public String getEntityName() {
+    return entityName;
   }
 
   public int inputIdentifierToIndex(String symbolName) {
