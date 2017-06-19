@@ -1,6 +1,7 @@
 package parser.dnfform;
 
 
+import espresso.boolFunction.Cover;
 import parser.symboltable.scope.ArchitectureSymbol;
 import parser.symboltable.symbol.InSymbol;
 import parser.symboltable.symbol.OutSymbol;
@@ -21,6 +22,8 @@ public class Architecture {
 
   private Map<String, Integer> inputNameToIndex = new HashMap<>();
   private Map<String, Integer> outputNameToIndex = new HashMap<>();
+
+  private Cover[] coverCache;
 
   public Architecture(String architectureName, ArchitectureSymbol architectureScope) {
     this.architectureName = architectureName;
@@ -109,5 +112,21 @@ public class Architecture {
 
   public int outputIdentifierToIndex(String symbolName) {
     return outputNameToIndex.getOrDefault(symbolName, -1);
+  }
+
+  public Cover[] generateCovers() {
+    coverCache = CoversFromArchitecture.instance().produceCovers(this);
+    return coverCache;
+  }
+
+  /**
+   * After {@link Architecture#generateCovers()} is called a cache
+   * of that generation is created. If that method was never called
+   * then this method will return null.
+   *
+   * @return Array of {@link Cover}.
+   */
+  public Cover[] getCoversCache() {
+    return coverCache;
   }
 }
