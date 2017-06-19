@@ -25,8 +25,6 @@ abstract public class BasicExpression implements Expression {
         this.args.add(null);
       }
     } else if (expressions.length >= getMinArgCount()) {
-//      this.args = new Expression[expressions.length];
-//      System.arraycopy(expressions, 0, this.args, 0, expressions.length);
       for (Expression expression : expressions) {
         if (expression != null) {
           args.add(expression);

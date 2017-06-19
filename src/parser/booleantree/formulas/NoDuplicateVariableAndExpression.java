@@ -47,6 +47,11 @@ public class NoDuplicateVariableAndExpression extends AndExpression {
         }
       }
     }
+
+//    AND expression must have at least 2 arguments.
+    if (args.size() == 1) {
+      args.add(new TrueConstant());
+    }
   }
 
   /**

@@ -37,7 +37,7 @@ public class CoversFromArchitecture {
         covers[i] = processOrExpression(expression);
       } else if (expression.getType() == AND) {
         Cube cube = processAndExpression(expression);
-        covers[i] = new Cover(cube);
+        if (cube != null) covers[i] = new Cover(cube);
       } else if (expression.getType() == FALSE) {
         covers[i] = new Cover(getTotalInputCount(), 1);
       } else if (expression.getType() == TRUE) {
@@ -74,22 +74,30 @@ public class CoversFromArchitecture {
     return cover;
   }
 
+  //  TODO: Refactor this method once EspressoMinimizer project fixes empty cube bugs.
   private Cube processAndExpression(Expression expression) {
-    int inputCount = architecture.getInSymbolCount() + architecture.getSignalSymbolCount();
+    int inputCount = getTotalInputCount();
     Cube cube = new Cube(inputCount, 1);
 
     for (int i = 0; i < expression.getArgCount(); i++) {
-      Expression variable = expression.getArg(i);
-      String variableName = retrieveName(variable);
+      Expression andElement = expression.getArg(i);
+
+      if (andElement.getType() == TRUE) {
+        continue;
+      }
+      if (andElement.getType() == FALSE) {
+        return null;
+      }
+
+      String variableName = retrieveName(andElement);
       int cubeIndex = architecture.inputIdentifierToIndex(variableName);
-      boolean isNegated = isNegated(variable);
+      boolean isNegated = isNegated(andElement);
 
       InputState newState = isNegated ? ZERO : ONE;
       InputState oldState = cube.getInputState(cubeIndex);
 
       if (oldState != DONTCARE && InputState.and(oldState, newState) == ZERO) {
-        setCubeInputsAsZero(cube);
-        return cube;
+        throw new UnsupportedOperationException("Duplicate input variables aren't supported.");
       } else {
         cube.setInput(newState, cubeIndex);
       }
@@ -99,7 +107,7 @@ public class CoversFromArchitecture {
   }
 
   private Cover processOrExpression(Expression expression) {
-    int inputCount = architecture.getInSymbolCount() + architecture.getSignalSymbolCount();
+    int inputCount = getTotalInputCount();
     Cover cover = new Cover(inputCount, 1);
 
     for (int i = 0; i < expression.getArgCount(); i++) {
@@ -115,7 +123,7 @@ public class CoversFromArchitecture {
         cover.add(cube);
       } else if (child.getType() == AND) {
         Cube cube = processAndExpression(child);
-        cover.add(cube);
+        if (cube != null) cover.add(cube);
       } else if (child.getType() == TRUE) {
         cover.add(new Cube(inputCount, 1));
       } else if (child.getType() != FALSE) {
@@ -147,12 +155,6 @@ public class CoversFromArchitecture {
       throw new UnsupportedOperationException(
           "Method accepts VARIABLE or negated with NOT VARIABLE Expression types."
       );
-    }
-  }
-
-  private void setCubeInputsAsZero(Cube cube) {
-    for (int i = 0; i < cube.inputLength(); i++) {
-      cube.setInput(ZERO, i);
     }
   }
 
