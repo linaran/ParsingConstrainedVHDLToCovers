@@ -21,6 +21,7 @@ public class Architecture {
   private List<OutSymbol> outSymbols = new ArrayList<>();
   private List<SignalSymbol> signalSymbols = new ArrayList<>();
 
+  private List<Symbol> indexToInputName = new ArrayList<>();
   private Map<String, Integer> inputNameToIndex = new HashMap<>();
   private Map<String, Integer> outputNameToIndex = new HashMap<>();
 
@@ -37,6 +38,7 @@ public class Architecture {
       switch (symbol.getType()) {
         case IN:
           inSymbols.add((InSymbol) symbol);
+          indexToInputName.add(symbol);
           inputNameToIndex.put(symbol.getName(), inputIndex++);
           break;
         case OUT:
@@ -48,6 +50,7 @@ public class Architecture {
 
     for (Symbol symbol : architectureScope) {
       signalSymbols.add((SignalSymbol) symbol);
+      indexToInputName.add(symbol);
       inputNameToIndex.put(symbol.getName(), inputIndex++);
     }
   }
@@ -110,6 +113,10 @@ public class Architecture {
 
   public String getEntityName() {
     return entityName;
+  }
+
+  public Symbol indexToInputIdentifier(int index) {
+    return indexToInputName.get(index);
   }
 
   public int inputIdentifierToIndex(String symbolName) {
