@@ -90,6 +90,21 @@ public class ParseFormulasVisitor extends VHDLBaseVisitor<Expression> {
   }
 
   @Override
+  public Expression visitExpressionBooleanConst(VHDLParser.ExpressionBooleanConstContext ctx) {
+    String boolConstText = ctx.getText();
+    int line = ctx.BOOLEAN_CONST().getSymbol().getLine();
+
+    switch (boolConstText) {
+      case "'0'":
+        return new FalseConstant();
+      case "'1'":
+        return new TrueConstant();
+      default:
+        throw new UnsupportedOperationException("Unrecognized boolean constant at line " + line);
+    }
+  }
+
+  @Override
   public Expression visitAndOp(VHDLParser.AndOpContext ctx) {
     return new AndExpression();
   }
