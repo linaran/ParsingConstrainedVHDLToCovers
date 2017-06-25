@@ -16,11 +16,11 @@ public class VHDLParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, ENTITY=3, IS=4, PORT=5, BEGIN=6, END=7, ARCHITECTURE=8, 
-		OF=9, SIGNAL=10, IN=11, OUT=12, MAP=13, STD_LOGIC=14, XOR=15, AND=16, 
-		NAND=17, OR=18, NOT=19, XNOR=20, NOR=21, COMMA=22, LPARENT=23, RPARENT=24, 
-		COLON=25, EQ=26, MUL=27, DIV=28, LE=29, GE=30, SEMI=31, UNDERSCORE=32, 
-		BASIC_IDENTIFIER=33, DIGIT=34, LETTER=35, BOOLEAN_CONST=36, WS=37;
+		T__0=1, ENTITY=2, IS=3, PORT=4, BEGIN=5, END=6, ARCHITECTURE=7, OF=8, 
+		SIGNAL=9, IN=10, OUT=11, MAP=12, STDLOGIC=13, XOR=14, AND=15, NAND=16, 
+		OR=17, NOT=18, XNOR=19, NOR=20, COMMA=21, LPARENT=22, RPARENT=23, COLON=24, 
+		EQ=25, MUL=26, DIV=27, LE=28, GE=29, SEMI=30, BASIC_IDENTIFIER=31, DIGIT=32, 
+		LETTER=33, BOOLEAN_CONST=34, WS=35;
 	public static final int
 		RULE_file = 0, RULE_entity_declaration = 1, RULE_port_declaration = 2, 
 		RULE_port_list = 3, RULE_interface_declarations = 4, RULE_input_declaration = 5, 
@@ -38,17 +38,16 @@ public class VHDLParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'std_logic'", "'work.'", null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		"','", "'('", "')'", "':'", "'='", "'*'", "'/'", "'<='", "'=>'", "';'", 
-		"'-'"
+		null, "'work.'", null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, "','", "'('", 
+		"')'", "':'", "'='", "'*'", "'/'", "'<='", "'=>'", "';'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, "ENTITY", "IS", "PORT", "BEGIN", "END", "ARCHITECTURE", 
-		"OF", "SIGNAL", "IN", "OUT", "MAP", "STD_LOGIC", "XOR", "AND", "NAND", 
-		"OR", "NOT", "XNOR", "NOR", "COMMA", "LPARENT", "RPARENT", "COLON", "EQ", 
-		"MUL", "DIV", "LE", "GE", "SEMI", "UNDERSCORE", "BASIC_IDENTIFIER", "DIGIT", 
-		"LETTER", "BOOLEAN_CONST", "WS"
+		null, null, "ENTITY", "IS", "PORT", "BEGIN", "END", "ARCHITECTURE", "OF", 
+		"SIGNAL", "IN", "OUT", "MAP", "STDLOGIC", "XOR", "AND", "NAND", "OR", 
+		"NOT", "XNOR", "NOR", "COMMA", "LPARENT", "RPARENT", "COLON", "EQ", "MUL", 
+		"DIV", "LE", "GE", "SEMI", "BASIC_IDENTIFIER", "DIGIT", "LETTER", "BOOLEAN_CONST", 
+		"WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -414,6 +413,7 @@ public class VHDLParser extends Parser {
 		}
 		public TerminalNode COLON() { return getToken(VHDLParser.COLON, 0); }
 		public TerminalNode IN() { return getToken(VHDLParser.IN, 0); }
+		public TerminalNode STDLOGIC() { return getToken(VHDLParser.STDLOGIC, 0); }
 		public Input_declarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -446,7 +446,7 @@ public class VHDLParser extends Parser {
 			setState(74);
 			match(IN);
 			setState(75);
-			match(T__0);
+			match(STDLOGIC);
 			}
 		}
 		catch (RecognitionException re) {
@@ -466,6 +466,7 @@ public class VHDLParser extends Parser {
 		}
 		public TerminalNode COLON() { return getToken(VHDLParser.COLON, 0); }
 		public TerminalNode OUT() { return getToken(VHDLParser.OUT, 0); }
+		public TerminalNode STDLOGIC() { return getToken(VHDLParser.STDLOGIC, 0); }
 		public Output_declarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -498,7 +499,7 @@ public class VHDLParser extends Parser {
 			setState(79);
 			match(OUT);
 			setState(80);
-			match(T__0);
+			match(STDLOGIC);
 			}
 		}
 		catch (RecognitionException re) {
@@ -637,6 +638,7 @@ public class VHDLParser extends Parser {
 			return getRuleContext(Identifier_listContext.class,0);
 		}
 		public TerminalNode COLON() { return getToken(VHDLParser.COLON, 0); }
+		public TerminalNode STDLOGIC() { return getToken(VHDLParser.STDLOGIC, 0); }
 		public List<TerminalNode> SEMI() { return getTokens(VHDLParser.SEMI); }
 		public TerminalNode SEMI(int i) {
 			return getToken(VHDLParser.SEMI, i);
@@ -689,7 +691,7 @@ public class VHDLParser extends Parser {
 			setState(99);
 			match(COLON);
 			setState(100);
-			match(T__0);
+			match(STDLOGIC);
 			setState(101);
 			match(SEMI);
 			setState(102);
@@ -1306,7 +1308,7 @@ public class VHDLParser extends Parser {
 			setState(153);
 			match(ENTITY);
 			setState(154);
-			match(T__1);
+			match(T__0);
 			setState(155);
 			identifier();
 			setState(156);
@@ -1530,7 +1532,7 @@ public class VHDLParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\'\u00b6\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3%\u00b6\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\3\2\3\2\3\2\3\2\5\2-\n\2\3\3\3\3\3\3\3\3\3\3\3\3"+
@@ -1549,39 +1551,39 @@ public class VHDLParser extends Parser {
 		"\2\26s\3\2\2\2\30v\3\2\2\2\32\u0085\3\2\2\2\34\u0090\3\2\2\2\36\u0097"+
 		"\3\2\2\2 \u0099\3\2\2\2\"\u00a7\3\2\2\2$\u00a9\3\2\2\2&\u00b1\3\2\2\2"+
 		"()\5\4\3\2)*\5\24\13\2*-\3\2\2\2+-\7\2\2\3,(\3\2\2\2,+\3\2\2\2-\3\3\2"+
-		"\2\2./\7\5\2\2/\60\5\22\n\2\60\61\7\6\2\2\61\62\5\6\4\2\62\64\7\t\2\2"+
-		"\63\65\5\22\n\2\64\63\3\2\2\2\64\65\3\2\2\2\65\66\3\2\2\2\66\67\7!\2\2"+
-		"\67\5\3\2\2\289\7\7\2\29:\7\31\2\2:;\5\b\5\2;<\7\32\2\2<=\7!\2\2=\7\3"+
-		"\2\2\2>?\5\n\6\2?\t\3\2\2\2@A\5\f\7\2AB\7!\2\2BC\5\16\b\2CI\3\2\2\2DE"+
-		"\5\16\b\2EF\7!\2\2FG\5\f\7\2GI\3\2\2\2H@\3\2\2\2HD\3\2\2\2I\13\3\2\2\2"+
-		"JK\5\20\t\2KL\7\33\2\2LM\7\r\2\2MN\7\3\2\2N\r\3\2\2\2OP\5\20\t\2PQ\7\33"+
-		"\2\2QR\7\16\2\2RS\7\3\2\2S\17\3\2\2\2TY\5\22\n\2UV\7\30\2\2VX\5\22\n\2"+
-		"WU\3\2\2\2X[\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z\21\3\2\2\2[Y\3\2\2\2\\]\7#\2"+
-		"\2]\23\3\2\2\2^_\7\n\2\2_`\5\22\n\2`a\7\13\2\2ab\5\22\n\2bc\7\6\2\2cd"+
-		"\7\f\2\2de\5\20\t\2ef\7\33\2\2fg\7\3\2\2gh\7!\2\2hi\7\b\2\2ij\5\26\f\2"+
-		"jl\7\t\2\2km\5\22\n\2lk\3\2\2\2lm\3\2\2\2mn\3\2\2\2no\7!\2\2o\25\3\2\2"+
-		"\2pr\5\30\r\2qp\3\2\2\2ru\3\2\2\2sq\3\2\2\2st\3\2\2\2t\27\3\2\2\2us\3"+
-		"\2\2\2vw\5\22\n\2wx\7\37\2\2xy\5\32\16\2yz\7!\2\2z\31\3\2\2\2{|\b\16\1"+
-		"\2|\u0086\5\22\n\2}~\5\34\17\2~\177\5\32\16\6\177\u0086\3\2\2\2\u0080"+
-		"\u0081\7\31\2\2\u0081\u0082\5\32\16\2\u0082\u0083\7\32\2\2\u0083\u0086"+
-		"\3\2\2\2\u0084\u0086\7&\2\2\u0085{\3\2\2\2\u0085}\3\2\2\2\u0085\u0080"+
-		"\3\2\2\2\u0085\u0084\3\2\2\2\u0086\u008d\3\2\2\2\u0087\u0088\f\5\2\2\u0088"+
-		"\u0089\5\36\20\2\u0089\u008a\5\32\16\6\u008a\u008c\3\2\2\2\u008b\u0087"+
-		"\3\2\2\2\u008c\u008f\3\2\2\2\u008d\u008b\3\2\2\2\u008d\u008e\3\2\2\2\u008e"+
-		"\33\3\2\2\2\u008f\u008d\3\2\2\2\u0090\u0091\7\25\2\2\u0091\35\3\2\2\2"+
-		"\u0092\u0098\7\22\2\2\u0093\u0098\7\24\2\2\u0094\u0098\7\23\2\2\u0095"+
-		"\u0098\7\27\2\2\u0096\u0098\7\21\2\2\u0097\u0092\3\2\2\2\u0097\u0093\3"+
-		"\2\2\2\u0097\u0094\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0096\3\2\2\2\u0098"+
-		"\37\3\2\2\2\u0099\u009a\5\22\n\2\u009a\u009b\7\33\2\2\u009b\u009c\7\5"+
-		"\2\2\u009c\u009d\7\4\2\2\u009d\u009e\5\22\n\2\u009e\u009f\7\7\2\2\u009f"+
-		"\u00a0\7\17\2\2\u00a0\u00a1\7\31\2\2\u00a1\u00a2\5\"\22\2\u00a2\u00a3"+
-		"\7\32\2\2\u00a3\u00a4\7!\2\2\u00a4!\3\2\2\2\u00a5\u00a8\5\20\t\2\u00a6"+
-		"\u00a8\5$\23\2\u00a7\u00a5\3\2\2\2\u00a7\u00a6\3\2\2\2\u00a8#\3\2\2\2"+
-		"\u00a9\u00ae\5&\24\2\u00aa\u00ab\7\30\2\2\u00ab\u00ad\5&\24\2\u00ac\u00aa"+
-		"\3\2\2\2\u00ad\u00b0\3\2\2\2\u00ae\u00ac\3\2\2\2\u00ae\u00af\3\2\2\2\u00af"+
-		"%\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b1\u00b2\5\22\n\2\u00b2\u00b3\7 \2\2"+
-		"\u00b3\u00b4\5\22\n\2\u00b4\'\3\2\2\2\r,\64HYls\u0085\u008d\u0097\u00a7"+
-		"\u00ae";
+		"\2\2./\7\4\2\2/\60\5\22\n\2\60\61\7\5\2\2\61\62\5\6\4\2\62\64\7\b\2\2"+
+		"\63\65\5\22\n\2\64\63\3\2\2\2\64\65\3\2\2\2\65\66\3\2\2\2\66\67\7 \2\2"+
+		"\67\5\3\2\2\289\7\6\2\29:\7\30\2\2:;\5\b\5\2;<\7\31\2\2<=\7 \2\2=\7\3"+
+		"\2\2\2>?\5\n\6\2?\t\3\2\2\2@A\5\f\7\2AB\7 \2\2BC\5\16\b\2CI\3\2\2\2DE"+
+		"\5\16\b\2EF\7 \2\2FG\5\f\7\2GI\3\2\2\2H@\3\2\2\2HD\3\2\2\2I\13\3\2\2\2"+
+		"JK\5\20\t\2KL\7\32\2\2LM\7\f\2\2MN\7\17\2\2N\r\3\2\2\2OP\5\20\t\2PQ\7"+
+		"\32\2\2QR\7\r\2\2RS\7\17\2\2S\17\3\2\2\2TY\5\22\n\2UV\7\27\2\2VX\5\22"+
+		"\n\2WU\3\2\2\2X[\3\2\2\2YW\3\2\2\2YZ\3\2\2\2Z\21\3\2\2\2[Y\3\2\2\2\\]"+
+		"\7!\2\2]\23\3\2\2\2^_\7\t\2\2_`\5\22\n\2`a\7\n\2\2ab\5\22\n\2bc\7\5\2"+
+		"\2cd\7\13\2\2de\5\20\t\2ef\7\32\2\2fg\7\17\2\2gh\7 \2\2hi\7\7\2\2ij\5"+
+		"\26\f\2jl\7\b\2\2km\5\22\n\2lk\3\2\2\2lm\3\2\2\2mn\3\2\2\2no\7 \2\2o\25"+
+		"\3\2\2\2pr\5\30\r\2qp\3\2\2\2ru\3\2\2\2sq\3\2\2\2st\3\2\2\2t\27\3\2\2"+
+		"\2us\3\2\2\2vw\5\22\n\2wx\7\36\2\2xy\5\32\16\2yz\7 \2\2z\31\3\2\2\2{|"+
+		"\b\16\1\2|\u0086\5\22\n\2}~\5\34\17\2~\177\5\32\16\6\177\u0086\3\2\2\2"+
+		"\u0080\u0081\7\30\2\2\u0081\u0082\5\32\16\2\u0082\u0083\7\31\2\2\u0083"+
+		"\u0086\3\2\2\2\u0084\u0086\7$\2\2\u0085{\3\2\2\2\u0085}\3\2\2\2\u0085"+
+		"\u0080\3\2\2\2\u0085\u0084\3\2\2\2\u0086\u008d\3\2\2\2\u0087\u0088\f\5"+
+		"\2\2\u0088\u0089\5\36\20\2\u0089\u008a\5\32\16\6\u008a\u008c\3\2\2\2\u008b"+
+		"\u0087\3\2\2\2\u008c\u008f\3\2\2\2\u008d\u008b\3\2\2\2\u008d\u008e\3\2"+
+		"\2\2\u008e\33\3\2\2\2\u008f\u008d\3\2\2\2\u0090\u0091\7\24\2\2\u0091\35"+
+		"\3\2\2\2\u0092\u0098\7\21\2\2\u0093\u0098\7\23\2\2\u0094\u0098\7\22\2"+
+		"\2\u0095\u0098\7\26\2\2\u0096\u0098\7\20\2\2\u0097\u0092\3\2\2\2\u0097"+
+		"\u0093\3\2\2\2\u0097\u0094\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0096\3\2"+
+		"\2\2\u0098\37\3\2\2\2\u0099\u009a\5\22\n\2\u009a\u009b\7\32\2\2\u009b"+
+		"\u009c\7\4\2\2\u009c\u009d\7\3\2\2\u009d\u009e\5\22\n\2\u009e\u009f\7"+
+		"\6\2\2\u009f\u00a0\7\16\2\2\u00a0\u00a1\7\30\2\2\u00a1\u00a2\5\"\22\2"+
+		"\u00a2\u00a3\7\31\2\2\u00a3\u00a4\7 \2\2\u00a4!\3\2\2\2\u00a5\u00a8\5"+
+		"\20\t\2\u00a6\u00a8\5$\23\2\u00a7\u00a5\3\2\2\2\u00a7\u00a6\3\2\2\2\u00a8"+
+		"#\3\2\2\2\u00a9\u00ae\5&\24\2\u00aa\u00ab\7\27\2\2\u00ab\u00ad\5&\24\2"+
+		"\u00ac\u00aa\3\2\2\2\u00ad\u00b0\3\2\2\2\u00ae\u00ac\3\2\2\2\u00ae\u00af"+
+		"\3\2\2\2\u00af%\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b1\u00b2\5\22\n\2\u00b2"+
+		"\u00b3\7\37\2\2\u00b3\u00b4\5\22\n\2\u00b4\'\3\2\2\2\r,\64HYls\u0085\u008d"+
+		"\u0097\u00a7\u00ae";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -13,8 +13,7 @@ SIGNAL : S I G N A L;
 IN : I N;
 OUT: O U T;
 MAP : M A P;
-
-STD_LOGIC: S T D UNDER L O G I C;
+STDLOGIC: S T D '_' L O G I C;
 
 XOR : X O R;
 AND : A N D;
@@ -51,7 +50,6 @@ fragment W:('w'|'W');
 fragment X:('x'|'X');
 fragment Y:('y'|'Y');
 fragment Z:('z'|'Z');
-fragment UNDER:('-');
 
 COMMA : ',';
 LPARENT : '(';
@@ -63,7 +61,6 @@ DIV : '/';
 LE : '<=';
 GE : '=>';
 SEMI : ';';
-UNDERSCORE : '-';
 
 BASIC_IDENTIFIER
    :   LETTER ( '_' ( LETTER | DIGIT ) | LETTER | DIGIT )*
@@ -108,11 +105,11 @@ interface_declarations
     ;
 
 input_declaration
-    : identifier_list COLON IN 'std_logic'
+    : identifier_list COLON IN STDLOGIC
     ;
 
 output_declaration
-    : identifier_list COLON OUT 'std_logic'
+    : identifier_list COLON OUT STDLOGIC
     ;
 
 identifier_list
@@ -125,7 +122,7 @@ identifier
 
 architecture
     : ARCHITECTURE identifier OF identifier IS
-    SIGNAL identifier_list COLON 'std_logic' SEMI
+    SIGNAL identifier_list COLON STDLOGIC SEMI
     BEGIN
     architecture_details
     END ( identifier )? SEMI
