@@ -16,7 +16,6 @@ public class CoverMinimization {
 
   public void minimizeCovers(Cover[] covers, Set<Integer> coverChoices) {
     if (coverChoices.size() == 0) {
-      minimizeCovers(covers);
       return;
     }
 

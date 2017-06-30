@@ -22,6 +22,7 @@ public class Test {
   public static void main(String[] args) throws IOException {
 //    Architecture architecture = ArchitectureFromVHDL.instance()
 //        .loadArchitectureFromString(readFile("vhdl-example/dataflow.vhd"));
+    System.out.println("");
     Architecture architecture = ArchitectureFromVHDL.instance().loadArchitectureFromFile("vhdl-example/dataflow.vhd");
     listener(architecture);
   }
