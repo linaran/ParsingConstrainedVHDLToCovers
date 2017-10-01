@@ -126,6 +126,10 @@ architecture
     BEGIN
     architecture_details
     END ( identifier )? SEMI
+    | ARCHITECTURE identifier OF identifier IS
+    BEGIN
+    architecture_details
+    END ( identifier )? SEMI
     ;
 
 architecture_details

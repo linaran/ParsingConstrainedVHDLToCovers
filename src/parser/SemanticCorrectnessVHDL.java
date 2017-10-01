@@ -192,6 +192,10 @@ public class SemanticCorrectnessVHDL extends VHDLBaseListener {
   private void defineSignals(VHDLParser.ArchitectureContext ctx) {
     Scope currentScope = scopeStack.peek();
 
+    if (ctx.identifier_list() == null) {
+      return;
+    }
+
     List<VHDLParser.IdentifierContext> identifiers = ctx.identifier_list().identifier();
     for (VHDLParser.IdentifierContext identifier : identifiers) {
       SignalSymbol signalSymbol = new SignalSymbol(identifier.getText());

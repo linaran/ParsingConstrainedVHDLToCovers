@@ -1,0 +1,8 @@
+-- Semantic check for recursive assignments.
+-- Check ONE and ZERO state.
+-- Flags to manipulate parsed model.
+-- Everything is UnsupportedOperationException (sloppy speedy coding). Refactor that.
+
+-- Probably a bug in CoverFromExpression when you decide to remove redundant variables. -- bug
+-- CoverMinimization was refactored to support empty Sets.
+-- Architecture can be broken. DNFForm maker needs to work inside Architecture constructor! -- refactor bug
